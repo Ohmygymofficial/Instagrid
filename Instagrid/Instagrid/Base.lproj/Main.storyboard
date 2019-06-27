@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Delm-Medium.otf">
+            <string>Delm-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -29,6 +34,61 @@
                                 <rect key="frame" x="201" y="91" width="13" height="9"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Layout 3" translatesAutoresizingMaskIntoConstraints="NO" id="tBD-Xj-Ky7">
+                                <rect key="frame" x="286" y="556" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Layout 2" translatesAutoresizingMaskIntoConstraints="NO" id="Bkg-gh-ovN">
+                                <rect key="frame" x="177" y="556" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Layout 1" translatesAutoresizingMaskIntoConstraints="NO" id="dSk-SY-8LE">
+                                <rect key="frame" x="49" y="556" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Selected" translatesAutoresizingMaskIntoConstraints="NO" id="q79-Jw-Zd0">
+                                <rect key="frame" x="286" y="569" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Selected" translatesAutoresizingMaskIntoConstraints="NO" id="tA8-g1-Cop">
+                                <rect key="frame" x="177" y="569" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Selected" translatesAutoresizingMaskIntoConstraints="NO" id="1Qf-ls-XXV">
+                                <rect key="frame" x="49" y="569" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Rectangle 3" translatesAutoresizingMaskIntoConstraints="NO" id="acU-Ua-hQl">
+                                <rect key="frame" x="64" y="201" width="151" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Rectangle 3" translatesAutoresizingMaskIntoConstraints="NO" id="7w4-lZ-ufO">
+                                <rect key="frame" x="215" y="201" width="151" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Rectangle 3" translatesAutoresizingMaskIntoConstraints="NO" id="tgj-yR-Cu7">
+                                <rect key="frame" x="214" y="349" width="151" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Rectangle 3" translatesAutoresizingMaskIntoConstraints="NO" id="sER-1P-msj">
+                                <rect key="frame" x="64" y="349" width="151" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Rectangle 4" translatesAutoresizingMaskIntoConstraints="NO" id="RBe-dl-B4N">
+                                <rect key="frame" x="64" y="205" width="297" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="Rectangle 4" translatesAutoresizingMaskIntoConstraints="NO" id="4u0-bS-ebZ">
+                                <rect key="frame" x="66" y="345" width="297" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Swipe up to share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goj-Vv-MQa">
+                                <rect key="frame" x="87" y="158" width="215" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Delm-Medium" family="Delm" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.71764705882352942" green="0.84313725490196079" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -46,5 +106,11 @@
     <resources>
         <image name="Arrow Up" width="13" height="9"/>
         <image name="Instagrid" width="124" height="39"/>
+        <image name="Layout 1" width="80" height="80"/>
+        <image name="Layout 2" width="80" height="80"/>
+        <image name="Layout 3" width="80" height="80"/>
+        <image name="Rectangle 3" width="151" height="150"/>
+        <image name="Rectangle 4" width="297" height="150"/>
+        <image name="Selected" width="80" height="80"/>
     </resources>
 </document>
