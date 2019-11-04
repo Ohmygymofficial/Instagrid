@@ -27,7 +27,7 @@
                                     <constraint firstAttribute="height" constant="50" id="TId-Bf-Oxt"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="nZu-Ow-Rip">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="nZu-Ow-Rip" userLabel="Share View">
                                 <rect key="frame" x="16" y="126" width="382" height="70"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="tiA-aZ-kKL">
@@ -44,7 +44,13 @@
                                     <constraint firstAttribute="height" constant="70" id="bdQ-F1-x2K"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5O0-Zq-fP1">
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8SL-6m-4tb" userLabel="Square View">
+                                <rect key="frame" x="25" y="212" width="364" height="364"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8SL-6m-4tb" secondAttribute="height" multiplier="1:1" id="p92-HJ-3pR"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5O0-Zq-fP1" userLabel="Choose View">
                                 <rect key="frame" x="16" y="766" width="382" height="80"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="Layout 1" translatesAutoresizingMaskIntoConstraints="NO" id="dSk-SY-8LE">
@@ -61,19 +67,12 @@
                                     <constraint firstAttribute="height" constant="80" id="nZZ-Ie-0UK"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8SL-6m-4tb">
-                                <rect key="frame" x="25" y="221" width="364" height="364"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="8SL-6m-4tb" secondAttribute="height" multiplier="1:1" id="p92-HJ-3pR"/>
-                                </constraints>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.71764705882352942" green="0.84313725490196079" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dBg-VU-vYa" secondAttribute="trailing" constant="16" id="6tX-Cm-BFS"/>
                             <constraint firstItem="dBg-VU-vYa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="HSR-5s-Qte"/>
                             <constraint firstItem="5O0-Zq-fP1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8SL-6m-4tb" secondAttribute="bottom" constant="25" id="MMk-sm-i6w"/>
-                            <constraint firstItem="8SL-6m-4tb" firstAttribute="top" secondItem="nZu-Ow-Rip" secondAttribute="bottom" constant="25" id="Mig-2C-Y06"/>
                             <constraint firstItem="nZu-Ow-Rip" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="NoZ-4j-Nm6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5O0-Zq-fP1" secondAttribute="trailing" constant="16" id="OYr-JR-SgY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5O0-Zq-fP1" secondAttribute="bottom" constant="16" id="VuW-aF-mVW"/>
@@ -83,6 +82,7 @@
                             <constraint firstItem="8SL-6m-4tb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="kyf-bE-wcY"/>
                             <constraint firstItem="nZu-Ow-Rip" firstAttribute="top" secondItem="dBg-VU-vYa" secondAttribute="bottom" constant="16" id="n9L-ja-vde"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nZu-Ow-Rip" secondAttribute="trailing" constant="16" id="rlZ-vV-oM8"/>
+                            <constraint firstItem="8SL-6m-4tb" firstAttribute="top" secondItem="nZu-Ow-Rip" secondAttribute="bottom" constant="16" id="xRF-7d-hHN"/>
                             <constraint firstItem="5O0-Zq-fP1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="zCl-2J-2Ku"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -90,7 +90,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133.125" y="132.04225352112675"/>
+            <point key="canvasLocation" x="133.125" y="131.25"/>
         </scene>
     </scenes>
     <resources>
