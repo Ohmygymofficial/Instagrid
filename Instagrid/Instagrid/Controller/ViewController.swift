@@ -12,14 +12,21 @@ class ViewController: UIViewController {
 
     
     // All objects of the view
-    
     @IBOutlet weak var instagrid: UIImageView!
+    // share view
     @IBOutlet weak var shareview: UIStackView!
     @IBOutlet weak var swipeUpLabel: UILabel!
     @IBOutlet weak var arrowUpImage: UIImageView!
+    // square view
+    @IBOutlet weak var squareUIView: UIView!
     @IBOutlet weak var squareView: UIStackView!
     @IBOutlet weak var squareUpView: UIStackView!
+    @IBOutlet weak var squareUpButton1: UIButton!
+    @IBOutlet weak var squareUpButton2: UIButton!
     @IBOutlet weak var squareBottomView: UIStackView!
+    @IBOutlet weak var squareBottomButton1: UIButton!
+    @IBOutlet weak var squareBottomButton2: UIButton!
+    // choose view
     @IBOutlet weak var chooseView: UIStackView!
     @IBOutlet weak var layoutImage1: UIImageView!
     @IBOutlet weak var layoutImage2: UIImageView!
@@ -50,11 +57,11 @@ class ViewController: UIViewController {
         private func setStyle(_ style: Style) {
             switch style {
             case .square:
-                
+                print("Choix 1")
             case .rectangleUp:
-            //code
+                print("Choix 2")
             case .rectangleDown:
-                //code
+                print("Choix 3")
             }
         }
     }

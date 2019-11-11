@@ -75,7 +75,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wX5-Tt-vxz">
                                 <rect key="frame" x="18" y="172" width="284" height="284"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lhv-yV-HmC" userLabel="Square View">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lhv-yV-HmC" userLabel="Square View">
                                         <rect key="frame" x="0.0" y="0.0" width="284" height="284"/>
                                         <subviews>
                                             <stackView contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-LH-zTH">
@@ -118,6 +118,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.062745098040000002" green="0.40000000000000002" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="lhv-yV-HmC" firstAttribute="top" secondItem="wX5-Tt-vxz" secondAttribute="top" id="1Gc-iC-2ax"/>
                                     <constraint firstItem="lhv-yV-HmC" firstAttribute="leading" secondItem="wX5-Tt-vxz" secondAttribute="leading" id="21X-VT-iRp"/>
                                     <constraint firstItem="lhv-yV-HmC" firstAttribute="width" secondItem="wX5-Tt-vxz" secondAttribute="width" id="5qY-5J-hzS"/>
                                     <constraint firstItem="lhv-yV-HmC" firstAttribute="height" secondItem="wX5-Tt-vxz" secondAttribute="height" id="R0q-YL-DcK"/>
@@ -385,7 +386,12 @@
                         <outlet property="layoutImage2" destination="Bkg-gh-ovN" id="0XH-3x-qN1"/>
                         <outlet property="layoutImage3" destination="tBD-Xj-Ky7" id="FQs-Oe-oZT"/>
                         <outlet property="shareview" destination="nZu-Ow-Rip" id="pgO-Qf-1k7"/>
+                        <outlet property="squareBottomButton1" destination="rJy-Ne-hFu" id="WOw-ws-bxJ"/>
+                        <outlet property="squareBottomButton2" destination="rPt-fO-ZY3" id="jXC-WW-Adh"/>
                         <outlet property="squareBottomView" destination="Sas-8m-dzZ" id="Rf9-vl-sfX"/>
+                        <outlet property="squareUIView" destination="wX5-Tt-vxz" id="ilp-bi-Kgf"/>
+                        <outlet property="squareUpButton1" destination="azh-ks-P7q" id="hgb-I3-4X4"/>
+                        <outlet property="squareUpButton2" destination="hpN-uI-8Nb" id="AOu-Rn-iLZ"/>
                         <outlet property="squareUpView" destination="Hat-LH-zTH" id="KI4-w9-TyG"/>
                         <outlet property="squareView" destination="lhv-yV-HmC" id="gL7-hp-LQJ"/>
                         <outlet property="swipeUpLabel" destination="goj-Vv-MQa" id="gmz-rG-C9f"/>
