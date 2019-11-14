@@ -9,15 +9,22 @@
 import UIKit
 
 class GridViewController: UIViewController {
-
     
-    // All objects of the view
+    
+    // MARK: IBOutlet Link
+    /**
+     All objects of the view
+     */
     @IBOutlet weak private var instagrid: UIImageView!
-    // share view
+    /**
+     ShareView
+     */
     @IBOutlet weak private var shareview: UIStackView!
     @IBOutlet weak private var swipeUpLabel: UILabel!
     @IBOutlet weak private var arrowUpImage: UIImageView!
-    // square view
+    /**
+     SquareView
+     */
     @IBOutlet weak private var squareUIView: UIView!
     @IBOutlet weak private var squareView: UIStackView!
     @IBOutlet weak private var squareUpView: UIStackView!
@@ -26,22 +33,30 @@ class GridViewController: UIViewController {
     @IBOutlet weak private var squareBottomView: UIStackView!
     @IBOutlet weak private var squareBottomButton1: UIButton!
     @IBOutlet weak private var squareBottomButton2: UIButton!
-    // choose view
+    /**
+     ChooseView
+     */
     @IBOutlet weak private var chooseView: UIStackView!
-    @IBOutlet weak private var layoutImage1: UIImageView!
-    @IBOutlet weak private var layoutImage2: UIImageView!
-    @IBOutlet weak private var layoutImage3: UIImageView!
+    @IBOutlet weak var chooseButton1: UIButton!
+    @IBOutlet weak var chooseButton2: UIButton!
+    @IBOutlet weak var chooseButton3: UIButton!
     
     
-    
+    // MARK: DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-            // Setting a gestureRecognizer for gesture
-            let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
-            shareview.addGestureRecognizer(gestureRecognizer)
-          }
-
-        
+        /**
+         Setting a let gestureRecognizer for detect user's gesture
+         */
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
+        shareview.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    
+    // MARK: SWIPE ON SHARE VIEW
+    /**
+     Case When user didSwipe on shareView
+     */
     @objc func userDidSwipe(sender: UIPanGestureRecognizer) {
         // AJOUTER ICI UNE CONDITION DU TYPE : SI LES IMAGES NE SONT PAS REMPLIES ALORS ON AFFICHE UNE ALERTE, SINON ON PERMET LE SHARE
         switch sender.state {
@@ -57,29 +72,50 @@ class GridViewController: UIViewController {
         
     }
     
+    /**
+    Action When user didSwipe began/changed on shareView
+    */
     private func transformShareView(gesture : UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareview)
         shareview.transform = CGAffineTransform(translationX: 0, y: translation.y)
     }
     
+    /**
+    Action When user didSwipe ended/cancelled on shareView
+    */
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
         shareview.transform = .identity
     }
-        
     
-      
+    
+    // MARK: TAP BUTTON ON SQUAREVIEW
+    /**
+    Bottom Button 1 TAP
+     */
     @IBAction func didTapBottomButton1(_ sender: Any) {
         TapBottomButton1()
     }
     
+    
+    /**
+    Bottom Button 1 Action
+     */
     private func TapBottomButton1() {
         swipeUpLabel.text = "Je change quand tu tapes"
     }
     
     
+    // MARK: TAP BUTTON ON CHOOSEVIEW
+    /**
+    ChooseButton1 TAP
+     */
     
     
-
+    
+    
+    
+    
+    
     
     class SelectedGrid: UIView {
         
