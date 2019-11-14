@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B15D4685237CDC7A002F59B2 /* PictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15D4684237CDC7A002F59B2 /* PictureView.swift */; };
 		B18D154422C6456200C7012F /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D154322C6456200C7012F /* Photos.swift */; };
 		B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */; };
-		B1EEC53122C2D8D100D0C6CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC53022C2D8D100D0C6CD /* ViewController.swift */; };
+		B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */; };
 		B1EEC53422C2D8D100D0C6CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1EEC53222C2D8D100D0C6CD /* Main.storyboard */; };
 		B1EEC53622C2D8D300D0C6CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1EEC53522C2D8D300D0C6CD /* Assets.xcassets */; };
 		B1EEC53922C2D8D300D0C6CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1EEC53722C2D8D300D0C6CD /* LaunchScreen.storyboard */; };
@@ -18,10 +19,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B15D4684237CDC7A002F59B2 /* PictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureView.swift; sourceTree = "<group>"; };
 		B18D154322C6456200C7012F /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		B1EEC52B22C2D8D100D0C6CD /* Instagrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B1EEC53022C2D8D100D0C6CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		B1EEC53322C2D8D100D0C6CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B1EEC53522C2D8D300D0C6CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1EEC53822C2D8D300D0C6CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				B1EEC53722C2D8D300D0C6CD /* LaunchScreen.storyboard */,
 				B1EEC53222C2D8D100D0C6CD /* Main.storyboard */,
+				B15D4684237CDC7A002F59B2 /* PictureView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -64,7 +67,7 @@
 		B18D154222C6452900C7012F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B1EEC53022C2D8D100D0C6CD /* ViewController.swift */,
+				B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -179,8 +182,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B18D154422C6456200C7012F /* Photos.swift in Sources */,
-				B1EEC53122C2D8D100D0C6CD /* ViewController.swift in Sources */,
+				B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */,
 				B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */,
+				B15D4685237CDC7A002F59B2 /* PictureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,7 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fr.ohmygym.Instagrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -354,7 +358,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fr.ohmygym.Instagrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

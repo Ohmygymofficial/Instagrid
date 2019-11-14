@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -13,16 +13,16 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Grid View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Instagrid" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GridViewController" customModule="Instagrid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Instagrid" translatesAutoresizingMaskIntoConstraints="NO" id="dBg-VU-vYa">
-                                <rect key="frame" x="16" y="60" width="382" height="40"/>
+                                <rect key="frame" x="16" y="16" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="TId-Bf-Oxt">
                                         <variation key="heightClass=compact-widthClass=compact" constant="25"/>
@@ -30,14 +30,14 @@
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillProportionally" alignment="center" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="nZu-Ow-Rip" userLabel="Share View">
-                                <rect key="frame" x="16" y="130" width="382" height="70"/>
+                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillProportionally" alignment="center" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="nZu-Ow-Rip" userLabel="ShareView">
+                                <rect key="frame" x="16" y="86" width="343" height="70"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="tiA-aZ-kKL">
-                                        <rect key="frame" x="184.33333333333334" y="0.0" width="13.333333333333343" height="28.666666666666668"/>
+                                        <rect key="frame" x="165" y="0.0" width="13.5" height="28.5"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe up to share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goj-Vv-MQa">
-                                        <rect key="frame" x="111.00000000000001" y="13.666666666666661" width="160.33333333333337" height="56.333333333333343"/>
+                                        <rect key="frame" x="91.5" y="13.5" width="160.5" height="56.5"/>
                                         <fontDescription key="fontDescription" name="Delm-Medium" family="Delm" pointSize="26"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -72,8 +72,8 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wX5-Tt-vxz">
-                                <rect key="frame" x="57" y="216" width="300" height="300"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wX5-Tt-vxz" userLabel="SquareUIView">
+                                <rect key="frame" x="37.5" y="172" width="300" height="300"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lhv-yV-HmC" userLabel="Square View">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
@@ -98,6 +98,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJy-Ne-hFu">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
+                                                        <connections>
+                                                            <action selector="didTapBottomButton1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kM7-g3-WoU"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3">
                                                         <rect key="frame" x="150" y="0.0" width="150" height="150"/>
@@ -125,8 +128,8 @@
                                     <constraint firstAttribute="width" secondItem="wX5-Tt-vxz" secondAttribute="height" multiplier="1:1" id="rsQ-cm-ORH"/>
                                 </constraints>
                             </view>
-                            <stackView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5O0-Zq-fP1" userLabel="Choose View">
-                                <rect key="frame" x="25" y="766" width="364" height="80"/>
+                            <stackView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5O0-Zq-fP1" userLabel="ChooseView">
+                                <rect key="frame" x="25" y="571" width="325" height="80"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" image="Layout 1" translatesAutoresizingMaskIntoConstraints="NO" id="dSk-SY-8LE">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -156,7 +159,7 @@
                                         </variation>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" image="Layout 2" translatesAutoresizingMaskIntoConstraints="NO" id="Bkg-gh-ovN">
-                                        <rect key="frame" x="142" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="122.5" y="0.0" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Bkg-gh-ovN" secondAttribute="height" multiplier="1:1" id="11O-SX-2p9"/>
                                             <constraint firstAttribute="width" secondItem="Bkg-gh-ovN" secondAttribute="height" multiplier="1:1" id="Hr1-az-l2h"/>
@@ -188,7 +191,7 @@
                                         </variation>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" image="Layout 3" translatesAutoresizingMaskIntoConstraints="NO" id="tBD-Xj-Ky7">
-                                        <rect key="frame" x="284" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="245" y="0.0" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="tBD-Xj-Ky7" secondAttribute="height" multiplier="1:1" id="FS0-0T-twp"/>
                                             <constraint firstAttribute="width" secondItem="tBD-Xj-Ky7" secondAttribute="height" multiplier="1:1" id="HUg-cV-ySG"/>
@@ -474,7 +477,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow Up" width="13.333333015441895" height="9.6666669845581055"/>
+        <image name="Arrow Up" width="13.5" height="9.5"/>
         <image name="Instagrid" width="124" height="39"/>
         <image name="Layout 1" width="80" height="80"/>
         <image name="Layout 2" width="80" height="80"/>
