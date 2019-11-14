@@ -93,14 +93,14 @@ class GridViewController: UIViewController {
     Bottom Button 1 TAP
      */
     @IBAction func didTapBottomButton1(_ sender: Any) {
-        TapBottomButton1()
+        tapBottomButton1()
     }
     
     
     /**
     Bottom Button 1 Action
      */
-    private func TapBottomButton1() {
+    private func tapBottomButton1() {
         swipeUpLabel.text = "Je change quand tu tapes"
     }
     
@@ -109,6 +109,53 @@ class GridViewController: UIViewController {
     /**
     ChooseButton1 TAP
      */
+    @IBAction func didTapChooseButton1(_ sender: Any) {
+        tapChooseButton1()
+    }
+    /**
+    ChooseButton1 Action
+     */
+    private func tapChooseButton1() {
+        squareUpButton1.isHidden = true
+        squareUpButton2.isHidden = false
+        squareBottomButton1.isHidden = false
+        squareBottomButton2.isHidden = false
+    }
+    
+    
+    /**
+    ChooseButton2 TAP
+     */
+    @IBAction func didTapChooseButton2(_ sender: Any) {
+        tapChooseButton2()
+    }
+    /**
+    ChooseButton2 Action
+     */
+    private func tapChooseButton2() {
+        squareUpButton1.isHidden = false
+        squareUpButton2.isHidden = false
+        squareBottomButton1.isHidden = true
+        squareBottomButton2.isHidden = false
+    }
+    
+    /**
+    ChooseButton3 TAP
+     */
+    @IBAction func didTapChooseButton3(_ sender: Any) {
+        tapChooseButton3()
+    }
+    /**
+    ChooseButton3 Action
+     */
+    private func tapChooseButton3() {
+        squareUpButton1.isHidden = false
+        squareUpButton2.isHidden = false
+        squareBottomButton1.isHidden = false
+        squareBottomButton2.isHidden = false
+    }
+    
+    
     
     
     
