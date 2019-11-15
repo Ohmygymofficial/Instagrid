@@ -54,6 +54,17 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         /**
          detect device orientation for gesture direction
          */
+        changingOrientation()
+    }
+    
+    
+    // LILIAN ... je sais pas ou mettre ces methodes   (viewWillAppear, viewWillTransition etc ....  elle n'existe nulle part, donc je peux pas les override comme viewDidSet, et le code ne rentre jamais dans la methode
+    
+    // MARK: viewWillAppear:
+    /**
+     detect device orientation for gesture direction
+     */
+    func viewWillAppear(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         if UIDevice.current.orientation == .landscapeLeft {
             // landscape mode
             swipeUpLabel.text = "Swipe left to share"
@@ -65,6 +76,36 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
+    // MARK: willTransition:
+    /**
+     detect device orientation for gesture direction
+     */
+    // Changes orientation screen display
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        changingOrientation()
+    }
+    
+    
+    // MARK: orientation is changing
+    /**
+    detect device orientation for gesture direction
+    */
+    func changingOrientation() {
+        if UIDevice.current.orientation == .landscapeRight {
+            self.swipeUpLabel.text = "Swipe right to share"
+            self.swipeUpLabel.isHidden = false
+        } else if UIDevice.current.orientation == .landscapeLeft {
+            swipeUpLabel.text = "Swipe left to share"
+            self.swipeUpLabel.isHidden = false
+        } else {
+            self.swipeUpLabel.text = "Swipe up to share"
+            self.swipeUpLabel.isHidden = false
+            self.swipeUpLabel.transform = .identity
+        }
+    }
+    
+    
+    
     
     // MARK: SWIPE ON SHARE VIEW
     /**
@@ -74,10 +115,8 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // AJOUTER ICI UNE CONDITION DU TYPE : SI LES IMAGES NE SONT PAS REMPLIES ALORS ON AFFICHE UNE ALERTE, SINON ON PERMET LE SHARE
         switch sender.state {
         case .began, .changed:
-            swipeUpLabel.text = "begin"
             transformShareView(gesture: sender)
         case .ended, .cancelled:
-            swipeUpLabel.text = "share"
             askingShareDone(gesture: sender)
         default:
             break
@@ -113,7 +152,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      Bottom Button 1 Action
      */
     private func tapBottomButton1() {
-        swipeUpLabel.text = "Je cherche une image"
         showImagePickerController()
     }
     
@@ -121,7 +159,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      Bottom Button 2 Action
      */
     private func tapBottomButton2() {
-        swipeUpLabel.text = "Je cherche une image"
         showImagePickerController()
     }
     
@@ -129,7 +166,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      Bottom Up 1 Action
      */
     private func tapUpButton1() {
-        swipeUpLabel.text = "Je cherche une image"
         showImagePickerController()
     }
     
@@ -137,7 +173,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      Bottom Up 2 Action
      */
     private func tapUpButton2() {
-        swipeUpLabel.text = "Je cherche une image"
         showImagePickerController()
     }
     
@@ -165,7 +200,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
-
+    
     /**
      Func to import the good image into the good Rectangle
      */
@@ -180,7 +215,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         dismiss(animated: true, completion: nil)
     }
-
+    
     
     
     
