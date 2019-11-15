@@ -42,11 +42,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var chooseButton3: UIButton!
     
     
-    /**
-     TestImage
-     */
-    @IBOutlet weak var testImage: UIImageView!
-    
     // MARK: DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,8 +113,12 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let actionSheet = UIAlertController(title: "Photo source", message: "Choose a source", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
-            imagePicker.sourceType = .camera
-            self.present(imagePicker, animated: true, completion: nil)
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.sourceType = .camera
+                self.present(imagePicker, animated: true, completion: nil)
+            }else{
+                self.swipeUpLabel.text = "Camera not avalaible right now"
+            }
         }))
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
             imagePicker.sourceType = .photoLibrary
@@ -133,11 +132,9 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// Controller of the image picker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            testImage.image = editedImage
             squareBottomButton1.setImage(editedImage, for: .normal)
         } else {
             if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                testImage.image = originalImage
                 squareBottomButton1.setImage(originalImage, for: .normal)
             }
         }
