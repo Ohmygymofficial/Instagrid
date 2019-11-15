@@ -50,7 +50,20 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
          */
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
         shareview.addGestureRecognizer(gestureRecognizer)
+        
+        /**
+         detect device orientation for gesture direction
+         */
+        if UIDevice.current.orientation == .landscapeLeft {
+            // landscape mode
+            swipeUpLabel.text = "Swipe left to share"
+        } else if UIDevice.current.orientation == .landscapeRight {
+            swipeUpLabel.text = "Swipe right to share"
+        } else {
+            swipeUpLabel.text = "Swipe up to share"
+        }
     }
+    
     
     
     // MARK: SWIPE ON SHARE VIEW
@@ -69,7 +82,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         default:
             break
         }
-        
     }
     
     /**
@@ -88,6 +100,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
+    
     // MARK: TAP BUTTON ON SQUAREVIEW
     /**
      Bottom Button 1 TAP
@@ -96,17 +109,42 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         tapBottomButton1()
     }
     
-    
     /**
      Bottom Button 1 Action
      */
     private func tapBottomButton1() {
-        
         swipeUpLabel.text = "Je cherche une image"
         showImagePickerController()
     }
     
-    func showImagePickerController() {
+    /**
+     Bottom Button 2 Action
+     */
+    private func tapBottomButton2() {
+        swipeUpLabel.text = "Je cherche une image"
+        showImagePickerController()
+    }
+    
+    /**
+     Bottom Up 1 Action
+     */
+    private func tapUpButton1() {
+        swipeUpLabel.text = "Je cherche une image"
+        showImagePickerController()
+    }
+    
+    /**
+     Bottom Up 2 Action
+     */
+    private func tapUpButton2() {
+        swipeUpLabel.text = "Je cherche une image"
+        showImagePickerController()
+    }
+    
+    /**
+     Func to show different proposition to import an image
+     */
+    private func showImagePickerController() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -126,11 +164,13 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
-        
     }
-    
-    /// Controller of the image picker
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+    /**
+     Func to import the good image into the good Rectangle
+     */
+    private func imagePickerController(_ picker: UIImagePickerController, buttonTapedIs: UIButton ,didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             squareBottomButton1.setImage(editedImage, for: .normal)
         } else {
@@ -140,9 +180,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
+
     
     
     
@@ -151,60 +189,42 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      ChooseButton1 TAP
      */
     @IBAction func didTapChooseButton1(_ sender: Any) {
-        tapChooseButton1()
+        isChangingDisposition(wichButtonIs: squareUpButton1)
     }
-    /**
-     ChooseButton1 Action
-     */
-    private func tapChooseButton1() {
-        squareUpButton1.isHidden = true
-        squareUpButton2.isHidden = false
-        squareBottomButton1.isHidden = false
-        squareBottomButton2.isHidden = false
-    }
-    
     
     /**
      ChooseButton2 TAP
      */
     @IBAction func didTapChooseButton2(_ sender: Any) {
-        tapChooseButton2()
-    }
-    /**
-     ChooseButton2 Action
-     */
-    private func tapChooseButton2() {
-        squareUpButton1.isHidden = false
-        squareUpButton2.isHidden = false
-        squareBottomButton1.isHidden = true
-        squareBottomButton2.isHidden = false
-    }
+        isChangingDisposition(wichButtonIs: squareBottomButton1)    }
     
     /**
      ChooseButton3 TAP
      */
     @IBAction func didTapChooseButton3(_ sender: Any) {
-        tapChooseButton3()
-    }
+        isChangingDisposition(wichButtonIs: squareUpButton2)    }
+    
     /**
-     ChooseButton3 Action
+     ChooseButton Action
      */
-    private func tapChooseButton3() {
-        squareUpButton1.isHidden = false
-        squareUpButton2.isHidden = false
-        squareBottomButton1.isHidden = false
-        squareBottomButton2.isHidden = false
+    private func isChangingDisposition(wichButtonIs : UIButton) {
+        if wichButtonIs == squareUpButton1 {
+            wichButtonIs.isHidden = true
+            squareUpButton2.isHidden = false
+            squareBottomButton1.isHidden = false
+            squareBottomButton2.isHidden = false
+        }else if wichButtonIs == squareBottomButton1 {
+            wichButtonIs.isHidden = true
+            squareUpButton1.isHidden = false
+            squareUpButton2.isHidden = false
+            squareBottomButton2.isHidden = false
+        }else{
+            squareUpButton1.isHidden = false
+            squareUpButton2.isHidden = false
+            squareBottomButton1.isHidden = false
+            squareBottomButton2.isHidden = false
+        }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
