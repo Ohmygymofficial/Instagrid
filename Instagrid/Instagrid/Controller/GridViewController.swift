@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GridViewController: UIViewController {
+class GridViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     // MARK: IBOutlet Link
@@ -31,7 +31,7 @@ class GridViewController: UIViewController {
     @IBOutlet weak private var squareUpButton1: UIButton!
     @IBOutlet weak private var squareUpButton2: UIButton!
     @IBOutlet weak private var squareBottomView: UIStackView!
-    @IBOutlet weak private var squareBottomButton1: UIButton!
+    @IBOutlet weak var squareBottomButton1: UIButton!
     @IBOutlet weak private var squareBottomButton2: UIButton!
     /**
      ChooseView
@@ -41,6 +41,11 @@ class GridViewController: UIViewController {
     @IBOutlet weak var chooseButton2: UIButton!
     @IBOutlet weak var chooseButton3: UIButton!
     
+    
+    /**
+     TestImage
+     */
+    @IBOutlet weak var testImage: UIImageView!
     
     // MARK: DidLoad
     override func viewDidLoad() {
@@ -73,16 +78,16 @@ class GridViewController: UIViewController {
     }
     
     /**
-    Action When user didSwipe began/changed on shareView
-    */
+     Action When user didSwipe began/changed on shareView
+     */
     private func transformShareView(gesture : UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareview)
         shareview.transform = CGAffineTransform(translationX: 0, y: translation.y)
     }
     
     /**
-    Action When user didSwipe ended/cancelled on shareView
-    */
+     Action When user didSwipe ended/cancelled on shareView
+     */
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
         shareview.transform = .identity
     }
@@ -90,7 +95,7 @@ class GridViewController: UIViewController {
     
     // MARK: TAP BUTTON ON SQUAREVIEW
     /**
-    Bottom Button 1 TAP
+     Bottom Button 1 TAP
      */
     @IBAction func didTapBottomButton1(_ sender: Any) {
         tapBottomButton1()
@@ -98,22 +103,61 @@ class GridViewController: UIViewController {
     
     
     /**
-    Bottom Button 1 Action
+     Bottom Button 1 Action
      */
     private func tapBottomButton1() {
-        swipeUpLabel.text = "Je change quand tu tapes"
+        
+        swipeUpLabel.text = "Je cherche une image"
+        showImagePickerController()
     }
+    
+    func showImagePickerController() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        let actionSheet = UIAlertController(title: "Photo source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
+        
+    }
+    
+    /// Controller of the image picker
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            testImage.image = editedImage
+            squareBottomButton1.setImage(editedImage, for: .normal)
+        } else {
+            if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                testImage.image = originalImage
+                squareBottomButton1.setImage(originalImage, for: .normal)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    
     
     
     // MARK: TAP BUTTON ON CHOOSEVIEW
     /**
-    ChooseButton1 TAP
+     ChooseButton1 TAP
      */
     @IBAction func didTapChooseButton1(_ sender: Any) {
         tapChooseButton1()
     }
     /**
-    ChooseButton1 Action
+     ChooseButton1 Action
      */
     private func tapChooseButton1() {
         squareUpButton1.isHidden = true
@@ -124,13 +168,13 @@ class GridViewController: UIViewController {
     
     
     /**
-    ChooseButton2 TAP
+     ChooseButton2 TAP
      */
     @IBAction func didTapChooseButton2(_ sender: Any) {
         tapChooseButton2()
     }
     /**
-    ChooseButton2 Action
+     ChooseButton2 Action
      */
     private func tapChooseButton2() {
         squareUpButton1.isHidden = false
@@ -140,13 +184,13 @@ class GridViewController: UIViewController {
     }
     
     /**
-    ChooseButton3 TAP
+     ChooseButton3 TAP
      */
     @IBAction func didTapChooseButton3(_ sender: Any) {
         tapChooseButton3()
     }
     /**
-    ChooseButton3 Action
+     ChooseButton3 Action
      */
     private func tapChooseButton3() {
         squareUpButton1.isHidden = false
@@ -154,6 +198,9 @@ class GridViewController: UIViewController {
         squareBottomButton1.isHidden = false
         squareBottomButton2.isHidden = false
     }
+    
+    
+    
     
     
     

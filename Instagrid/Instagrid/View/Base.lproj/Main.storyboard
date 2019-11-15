@@ -173,9 +173,19 @@
                                     </mask>
                                 </variation>
                             </stackView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Instagrid" translatesAutoresizingMaskIntoConstraints="NO" id="txe-kQ-xGg" userLabel="testImage">
+                                <rect key="frame" x="125.5" y="492" width="124" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="fTY-2x-aSX">
+                                        <variation key="heightClass=compact-widthClass=compact" constant="25"/>
+                                        <variation key="heightClass=compact-widthClass=regular" constant="40"/>
+                                    </constraint>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.71764705882352942" green="0.84313725490196079" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="txe-kQ-xGg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rPt-fO-ZY3" secondAttribute="bottom" constant="20" id="01d-Y7-oIA"/>
                             <constraint firstItem="5O0-Zq-fP1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="718" id="07a-qc-mCn">
                                 <variation key="heightClass=compact" constant="16"/>
                             </constraint>
@@ -187,6 +197,7 @@
                             </constraint>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dBg-VU-vYa" secondAttribute="trailing" constant="16" id="6tX-Cm-BFS"/>
                             <constraint firstItem="nZu-Ow-Rip" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="A0e-pK-90H"/>
+                            <constraint firstItem="txe-kQ-xGg" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="B5h-FR-eFr"/>
                             <constraint firstItem="5O0-Zq-fP1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wX5-Tt-vxz" secondAttribute="trailing" constant="-174" id="BKW-5R-bWa">
                                 <variation key="heightClass=compact" constant="16"/>
                             </constraint>
@@ -220,6 +231,7 @@
                             <constraint firstItem="wX5-Tt-vxz" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="apN-Iv-iBB"/>
                             <constraint firstItem="wX5-Tt-vxz" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="dAa-Tq-asL"/>
                             <constraint firstItem="dBg-VU-vYa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="dhf-sT-70I"/>
+                            <constraint firstItem="Kt3-XG-CJC" firstAttribute="top" secondItem="txe-kQ-xGg" secondAttribute="bottom" constant="39" id="gwS-0r-u29"/>
                             <constraint firstItem="5O0-Zq-fP1" firstAttribute="height" secondItem="wX5-Tt-vxz" secondAttribute="height" id="hI2-4P-G2A"/>
                             <constraint firstItem="5O0-Zq-fP1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="317" id="iWZ-ie-8Fq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wX5-Tt-vxz" secondAttribute="bottom" constant="32" id="moV-IC-YMk">
@@ -338,6 +350,7 @@
                         <outlet property="squareUpView" destination="Hat-LH-zTH" id="KI4-w9-TyG"/>
                         <outlet property="squareView" destination="lhv-yV-HmC" id="gL7-hp-LQJ"/>
                         <outlet property="swipeUpLabel" destination="goj-Vv-MQa" id="gmz-rG-C9f"/>
+                        <outlet property="testImage" destination="txe-kQ-xGg" id="dVE-RP-xyW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
