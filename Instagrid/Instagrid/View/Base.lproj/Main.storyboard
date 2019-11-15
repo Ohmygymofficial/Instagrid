@@ -35,6 +35,7 @@
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="tiA-aZ-kKL">
                                         <rect key="frame" x="184.33333333333334" y="0.0" width="13.333333333333343" height="28.666666666666668"/>
+                                        <variation key="heightClass=compact" image="Arrow Left"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe up to share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="goj-Vv-MQa">
                                         <rect key="frame" x="111.00000000000001" y="13.666666666666675" width="160.33333333333337" height="56.333333333333343"/>
@@ -346,6 +347,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Arrow Left" width="9.6666669845581055" height="13.333333015441895"/>
         <image name="Arrow Up" width="13.333333015441895" height="9.6666669845581055"/>
         <image name="Instagrid" width="124" height="39"/>
         <image name="Layout 1" width="80" height="80"/>
