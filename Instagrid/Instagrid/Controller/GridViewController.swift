@@ -12,19 +12,13 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     
     // MARK: IBOutlet Link
-    /**
-     All objects of the view
-     */
+    /// All objects of the view
     @IBOutlet weak private var instagrid: UIImageView!
-    /**
-     ShareView
-     */
+    /// ShareView
     @IBOutlet weak private var shareview: UIStackView!
     @IBOutlet weak private var swipeUpLabel: UILabel!
     @IBOutlet weak private var arrowUpImage: UIImageView!
-    /**
-     SquareView
-     */
+    /// SquareView
     @IBOutlet weak private var squareUIView: UIView!
     @IBOutlet weak private var squareView: UIStackView!
     @IBOutlet weak private var squareUpView: UIStackView!
@@ -33,63 +27,35 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak private var squareBottomView: UIStackView!
     @IBOutlet weak var squareBottomButton1: UIButton!
     @IBOutlet weak private var squareBottomButton2: UIButton!
-    /**
-     ChooseView
-     */
+    /// ChooseView
     @IBOutlet weak private var chooseView: UIStackView!
     @IBOutlet weak var chooseButton1: UIButton!
     @IBOutlet weak var chooseButton2: UIButton!
     @IBOutlet weak var chooseButton3: UIButton!
+    /// declare whereIsTapped : identify the good square to import a photo, default 1
+    var whereIsTapped : PhotoButtonTapped = .topLeft
     
     
-    // MARK: DidLoad
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        /**
-         Setting a let gestureRecognizer for detect user's gesture
-         */
+        /// Setting a let gestureRecognizer for detect user's gesture
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
         shareview.addGestureRecognizer(gestureRecognizer)
-        
-        /**
-         detect device orientation for gesture direction
-         */
+        /// detect device orientation for gesture direction
         changingOrientation()
     }
-    
-    
-    // LILIAN ... je sais pas ou mettre ces methodes   (viewWillAppear, viewWillTransition etc ....  elle n'existe nulle part, donc je peux pas les override comme viewDidSet, et le code ne rentre jamais dans la methode
-    
-    // MARK: viewWillAppear:
-    /**
-     detect device orientation for gesture direction
-     */
-    func viewWillAppear(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        if UIDevice.current.orientation == .landscapeLeft {
-            // landscape mode
-            swipeUpLabel.text = "Swipe left to share"
-        } else if UIDevice.current.orientation == .landscapeRight {
-            swipeUpLabel.text = "Swipe right to share"
-        } else {
-            swipeUpLabel.text = "Swipe up to share"
-        }
-    }
-    
+
     
     // MARK: willTransition:
-    /**
-     detect device orientation for gesture direction
-     */
-    // Changes orientation screen display
+    /// willTransition :detect device orientation for gesture direction
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         changingOrientation()
     }
     
     
     // MARK: orientation is changing
-    /**
-    detect device orientation for gesture direction
-    */
+    /// changingOrientation :detect device orientation for gesture direction
     func changingOrientation() {
         if UIDevice.current.orientation == .landscapeRight {
             self.swipeUpLabel.text = "Swipe right to share"
@@ -105,14 +71,10 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
+    // MARK: Swipe on share view
     
-    
-    // MARK: SWIPE ON SHARE VIEW
-    /**
-     Case When user didSwipe on shareView
-     */
+    /// userDidSwipe : Case When user didSwipe on shareView
     @objc func userDidSwipe(sender: UIPanGestureRecognizer) {
-        // AJOUTER ICI UNE CONDITION DU TYPE : SI LES IMAGES NE SONT PAS REMPLIES ALORS ON AFFICHE UNE ALERTE, SINON ON PERMET LE SHARE
         switch sender.state {
         case .began, .changed:
             transformShareView(gesture: sender)
@@ -122,126 +84,89 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             break
         }
     }
-    
-    /**
-     Action When user didSwipe began/changed on shareView
-     */
+    /// transformShareView : Action When user didSwipe began/changed on shareView
     private func transformShareView(gesture : UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareview)
         shareview.transform = CGAffineTransform(translationX: 0, y: translation.y)
     }
-    
-    /**
-     Action When user didSwipe ended/cancelled on shareView
-     */
+    /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
         shareview.transform = .identity
     }
     
     
+    // MARK: Tap button on square view
+    @IBAction func didTapOnTopLeftButton(_ sender: UIButton) {
+        whereIsTapped = .topLeft
+        showImagePickerController()
+    }
     
-    // MARK: TAP BUTTON ON SQUAREVIEW
-    /**
-     Bottom Button 1 TAP
-     */
+    @IBAction func didTapTopButton2(_ sender: Any) {
+          whereIsTapped = .topRight
+          showImagePickerController()
+      }
+    
+    
     @IBAction func didTapBottomButton1(_ sender: Any) {
-        tapBottomButton1()
-    }
-    
-    /**
-     Bottom Button 1 Action
-     */
-    private func tapBottomButton1() {
+        whereIsTapped = .bottomLeft
         showImagePickerController()
     }
     
-    /**
-     Bottom Button 2 Action
-     */
-    private func tapBottomButton2() {
+    @IBAction func didTapBottomButton2(_ sender: Any) {
+        whereIsTapped = .bottomRight
         showImagePickerController()
     }
     
-    /**
-     Bottom Up 1 Action
-     */
-    private func tapUpButton1() {
-        showImagePickerController()
-    }
     
-    /**
-     Bottom Up 2 Action
-     */
-    private func tapUpButton2() {
-        showImagePickerController()
-    }
+    // MARK: User want to import an image
     
-    /**
-     Func to show different proposition to import an image
-     */
+    /// showImagePickerController : Used to choose option
     private func showImagePickerController() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        let actionSheet = UIAlertController(title: "Photo source", message: "Choose a source", preferredStyle: .actionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                imagePicker.sourceType = .camera
-                self.present(imagePicker, animated: true, completion: nil)
-            }else{
-                self.swipeUpLabel.text = "Camera not avalaible right now"
-            }
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
-            imagePicker.sourceType = .photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(actionSheet, animated: true, completion: nil)
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    /**
-     Func to import the good image into the good Rectangle
-     */
-    private func imagePickerController(_ picker: UIImagePickerController, buttonTapedIs: UIButton ,didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            squareBottomButton1.setImage(editedImage, for: .normal)
-        } else {
-            if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                squareBottomButton1.setImage(originalImage, for: .normal)
+    /// imagePickerController : To import image in the good Square
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            sendInGoodButton(originalImage: originalImage, whereIsTapped: whereIsTapped)
+                }
+            dismiss(animated: true, completion: nil)
+        }
+
+    /// sendInGoodButton : Refactor to import image in the good square depending of wich button is tapped
+    func sendInGoodButton(originalImage: UIImage, whereIsTapped : PhotoButtonTapped) {
+        var goodButton : UIButton {
+            switch whereIsTapped {
+            case .topLeft :
+                return squareUpButton1
+            case .topRight :
+                return squareUpButton2
+            case .bottomLeft :
+                return squareBottomButton1
+            default:
+                return squareUpButton2
             }
         }
-        dismiss(animated: true, completion: nil)
+        goodButton.setImage(originalImage, for: .normal)
     }
     
     
     
-    
-    // MARK: TAP BUTTON ON CHOOSEVIEW
-    /**
-     ChooseButton1 TAP
-     */
+    // MARK: Tap button on chooseView
+
     @IBAction func didTapChooseButton1(_ sender: Any) {
         isChangingDisposition(wichButtonIs: squareUpButton1)
     }
-    
-    /**
-     ChooseButton2 TAP
-     */
     @IBAction func didTapChooseButton2(_ sender: Any) {
         isChangingDisposition(wichButtonIs: squareBottomButton1)    }
-    
-    /**
-     ChooseButton3 TAP
-     */
     @IBAction func didTapChooseButton3(_ sender: Any) {
         isChangingDisposition(wichButtonIs: squareUpButton2)    }
     
-    /**
-     ChooseButton Action
-     */
+/// isChangingDisposition : Changing disposition in square view depend of wich one is choosen
     private func isChangingDisposition(wichButtonIs : UIButton) {
         if wichButtonIs == squareUpButton1 {
             wichButtonIs.isHidden = true

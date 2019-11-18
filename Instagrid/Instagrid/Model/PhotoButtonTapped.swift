@@ -1,5 +1,5 @@
 //
-//  Photos.swift
+//  PhotoButtonTapped.swift
 //  Instagrid
 //
 //  Created by E&M Life Project on 28/06/2019.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-class Photos {
-    
-}
+    enum PhotoButtonTapped {
+        case topLeft, topRight, bottomLeft, bottomRight
+    }

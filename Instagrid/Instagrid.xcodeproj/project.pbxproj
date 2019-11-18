@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B15D4685237CDC7A002F59B2 /* PictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15D4684237CDC7A002F59B2 /* PictureView.swift */; };
-		B18D154422C6456200C7012F /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D154322C6456200C7012F /* Photos.swift */; };
+		B18D154422C6456200C7012F /* PhotoButtonTapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D154322C6456200C7012F /* PhotoButtonTapped.swift */; };
 		B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */; };
 		B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */; };
 		B1EEC53422C2D8D100D0C6CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1EEC53222C2D8D100D0C6CD /* Main.storyboard */; };
@@ -20,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		B15D4684237CDC7A002F59B2 /* PictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureView.swift; sourceTree = "<group>"; };
-		B18D154322C6456200C7012F /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
+		B18D154322C6456200C7012F /* PhotoButtonTapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoButtonTapped.swift; sourceTree = "<group>"; };
 		B1EEC52B22C2D8D100D0C6CD /* Instagrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		B18D154522C6456F00C7012F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B18D154322C6456200C7012F /* Photos.swift */,
+				B18D154322C6456200C7012F /* PhotoButtonTapped.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -181,7 +181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B18D154422C6456200C7012F /* Photos.swift in Sources */,
+				B18D154422C6456200C7012F /* PhotoButtonTapped.swift in Sources */,
 				B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */,
 				B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */,
 				B15D4685237CDC7A002F59B2 /* PictureView.swift in Sources */,
