@@ -22,11 +22,11 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak private var squareUIView: UIView!
     @IBOutlet weak private var squareView: UIStackView!
     @IBOutlet weak private var squareUpView: UIStackView!
-    @IBOutlet weak private var squareUpButton1: UIButton!
-    @IBOutlet weak private var squareUpButton2: UIButton!
+    @IBOutlet weak private var squareButtonTopLeft: UIButton!
+    @IBOutlet weak private var squareButtonTopRight: UIButton!
     @IBOutlet weak private var squareBottomView: UIStackView!
-    @IBOutlet weak var squareBottomButton1: UIButton!
-    @IBOutlet weak private var squareBottomButton2: UIButton!
+    @IBOutlet weak private var squareButtonBottomLeft: UIButton!
+    @IBOutlet weak private var squareButtonBottomRight: UIButton!
     /// ChooseView
     @IBOutlet weak private var chooseView: UIStackView!
     @IBOutlet weak var chooseButton1: UIButton!
@@ -101,18 +101,18 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         showImagePickerController()
     }
     
-    @IBAction func didTapTopButton2(_ sender: Any) {
+    @IBAction func didTapOnTopRightButton(_ sender: Any) {
           whereIsTapped = .topRight
           showImagePickerController()
       }
     
     
-    @IBAction func didTapBottomButton1(_ sender: Any) {
+    @IBAction func didTapOnBottomLeftButton(_ sender: Any) {
         whereIsTapped = .bottomLeft
         showImagePickerController()
     }
     
-    @IBAction func didTapBottomButton2(_ sender: Any) {
+    @IBAction func didTapOnBottomRightButton(_ sender: Any) {
         whereIsTapped = .bottomRight
         showImagePickerController()
     }
@@ -142,13 +142,13 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         var goodButton : UIButton {
             switch whereIsTapped {
             case .topLeft :
-                return squareUpButton1
+                return squareButtonTopLeft
             case .topRight :
-                return squareUpButton2
+                return squareButtonTopRight
             case .bottomLeft :
-                return squareBottomButton1
+                return squareButtonBottomLeft
             default:
-                return squareUpButton2
+                return squareButtonTopRight
             }
         }
         goodButton.setImage(originalImage, for: .normal)
@@ -159,30 +159,30 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     // MARK: Tap button on chooseView
 
     @IBAction func didTapChooseButton1(_ sender: Any) {
-        isChangingDisposition(wichButtonIs: squareUpButton1)
+        isChangingDisposition(wichButtonIsHidden: squareButtonTopLeft)
     }
     @IBAction func didTapChooseButton2(_ sender: Any) {
-        isChangingDisposition(wichButtonIs: squareBottomButton1)    }
+        isChangingDisposition(wichButtonIsHidden: squareButtonBottomLeft)    }
     @IBAction func didTapChooseButton3(_ sender: Any) {
-        isChangingDisposition(wichButtonIs: squareUpButton2)    }
+        isChangingDisposition(wichButtonIsHidden: squareButtonTopRight)    }
     
 /// isChangingDisposition : Changing disposition in square view depend of wich one is choosen
-    private func isChangingDisposition(wichButtonIs : UIButton) {
-        if wichButtonIs == squareUpButton1 {
-            wichButtonIs.isHidden = true
-            squareUpButton2.isHidden = false
-            squareBottomButton1.isHidden = false
-            squareBottomButton2.isHidden = false
-        }else if wichButtonIs == squareBottomButton1 {
-            wichButtonIs.isHidden = true
-            squareUpButton1.isHidden = false
-            squareUpButton2.isHidden = false
-            squareBottomButton2.isHidden = false
+    private func isChangingDisposition(wichButtonIsHidden : UIButton) {
+        if wichButtonIsHidden == squareButtonTopLeft {
+            wichButtonIsHidden.isHidden = true
+            squareButtonTopRight.isHidden = false
+            squareButtonBottomLeft.isHidden = false
+            squareButtonBottomRight.isHidden = false
+        }else if wichButtonIsHidden == squareButtonBottomLeft {
+            wichButtonIsHidden.isHidden = true
+            squareButtonTopLeft.isHidden = false
+            squareButtonTopRight.isHidden = false
+            squareButtonBottomRight.isHidden = false
         }else{
-            squareUpButton1.isHidden = false
-            squareUpButton2.isHidden = false
-            squareBottomButton1.isHidden = false
-            squareBottomButton2.isHidden = false
+            squareButtonTopLeft.isHidden = false
+            squareButtonTopRight.isHidden = false
+            squareButtonBottomLeft.isHidden = false
+            squareButtonBottomRight.isHidden = false
         }
     }
     

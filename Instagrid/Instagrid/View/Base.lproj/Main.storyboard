@@ -82,18 +82,18 @@
                                             <stackView contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-LH-zTH">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azh-ks-P7q">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azh-ks-P7q" userLabel="SquareButtonTopLeft">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnTopLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cth-Vj-oqb"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpN-uI-8Nb">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpN-uI-8Nb" userLabel="SquareButtonTopRight">
                                                         <rect key="frame" x="150" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
-                                                            <action selector="didTapTopButton2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SJ1-Wt-xk7"/>
+                                                            <action selector="didTapOnTopRightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1sf-HV-6RF"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -102,18 +102,18 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Sas-8m-dzZ">
                                                 <rect key="frame" x="0.0" y="150" width="300" height="150"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJy-Ne-hFu">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJy-Ne-hFu" userLabel="SquareButtonBottomLeft">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
-                                                            <action selector="didTapBottomButton1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kM7-g3-WoU"/>
+                                                            <action selector="didTapOnBottomLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7RB-Xi-occ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
                                                         <rect key="frame" x="150" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
-                                                            <action selector="didTapBottomButton2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0lO-ug-zlu"/>
+                                                            <action selector="didTapOnBottomRightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iqz-kb-zsC"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -339,12 +339,12 @@
                         <outlet property="chooseView" destination="5O0-Zq-fP1" id="v3P-WZ-LGf"/>
                         <outlet property="instagrid" destination="dBg-VU-vYa" id="k0Z-W3-5vO"/>
                         <outlet property="shareview" destination="nZu-Ow-Rip" id="pgO-Qf-1k7"/>
-                        <outlet property="squareBottomButton1" destination="rJy-Ne-hFu" id="WOw-ws-bxJ"/>
-                        <outlet property="squareBottomButton2" destination="rPt-fO-ZY3" id="jXC-WW-Adh"/>
                         <outlet property="squareBottomView" destination="Sas-8m-dzZ" id="Rf9-vl-sfX"/>
+                        <outlet property="squareButtonBottomLeft" destination="rJy-Ne-hFu" id="WOw-ws-bxJ"/>
+                        <outlet property="squareButtonBottomRight" destination="rPt-fO-ZY3" id="jXC-WW-Adh"/>
+                        <outlet property="squareButtonTopLeft" destination="azh-ks-P7q" id="BYg-z0-kQr"/>
+                        <outlet property="squareButtonTopRight" destination="hpN-uI-8Nb" id="HZH-lh-Irs"/>
                         <outlet property="squareUIView" destination="wX5-Tt-vxz" id="ilp-bi-Kgf"/>
-                        <outlet property="squareUpButton1" destination="azh-ks-P7q" id="hgb-I3-4X4"/>
-                        <outlet property="squareUpButton2" destination="hpN-uI-8Nb" id="AOu-Rn-iLZ"/>
                         <outlet property="squareUpView" destination="Hat-LH-zTH" id="KI4-w9-TyG"/>
                         <outlet property="squareView" destination="lhv-yV-HmC" id="gL7-hp-LQJ"/>
                         <outlet property="swipeUpLabel" destination="goj-Vv-MQa" id="gmz-rG-C9f"/>
