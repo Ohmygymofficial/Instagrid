@@ -34,6 +34,8 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var chooseButton3: UIButton!
     /// declare whereIsTapped : identify the good square to import a photo, default 1
     var whereIsTapped : PhotoButtonTapped = .topLeft
+    /// declare dispositionIs as a variant to check how much image user have to load before to share
+    var dispositionIs = 3
     
     
     // MARK: viewDidLoad
@@ -45,7 +47,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         /// detect device orientation for gesture direction
         changingOrientation()
     }
-
+    
     
     // MARK: willTransition:
     /// willTransition :detect device orientation for gesture direction
@@ -84,26 +86,68 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             break
         }
     }
+    
     /// transformShareView : Action When user didSwipe began/changed on shareView
     private func transformShareView(gesture : UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareview)
         shareview.transform = CGAffineTransform(translationX: 0, y: translation.y)
     }
+    
     /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
         shareview.transform = .identity
-        /// UIActivity to share
+        /// convert UIView into Image
         let renderer = UIGraphicsImageRenderer(size: squareUIView.bounds.size)
         let imageView = renderer.image { ctx in
             squareUIView.drawHierarchy(in: squareUIView.bounds, afterScreenUpdates: true)
         }
-        let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
-        present(vc, animated: true)
+        /// have to check if the square is complete
+        wichDispositionis()
+        
+        /// share with UIActivity
+            let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
+            present(vc, animated: true)
     }
-
-
     
-
+    // Check depend of the disposition choosen
+    func wichDispositionis() {
+        /// if dispositionIs 1 : Must Have TopRight, BottomLeft, BottomRight
+        if dispositionIs == 1 {
+            checkImagesIsPresent(neededButtonImage: squareButtonTopRight)
+            checkImagesIsPresent(neededButtonImage: squareButtonBottomLeft)
+            checkImagesIsPresent(neededButtonImage: squareButtonBottomRight)
+        }
+        /// if dispositionIs 2 : Must Have TopLeft, TopRight, BottomRight
+        if dispositionIs == 2 {
+            checkImagesIsPresent(neededButtonImage: squareButtonTopLeft)
+            checkImagesIsPresent(neededButtonImage: squareButtonTopRight)
+            checkImagesIsPresent(neededButtonImage: squareButtonBottomRight)
+        }
+        /// if dispositionIs 3 : Must Have TopLeft, TopRight, BottomLeft, BottomRight
+        if dispositionIs == 3 {
+            checkImagesIsPresent(neededButtonImage: squareButtonTopLeft)
+            checkImagesIsPresent(neededButtonImage: squareButtonTopRight)
+            checkImagesIsPresent(neededButtonImage: squareButtonBottomLeft)
+            checkImagesIsPresent(neededButtonImage: squareButtonBottomRight)
+        }
+    }
+    
+    // Check if user loaded image into each square
+    func checkImagesIsPresent (neededButtonImage: UIButton) {
+        if neededButtonImage.image(for: .normal)!.pngData() == UIImage(named: "Plus")!.pngData() {
+            checkBeforeShare()
+        }
+    }
+    
+    
+    // Check if all the button image is complete before sharing
+    func checkBeforeShare() {
+        let alert = UIAlertController(title: "IMAGE MANQUANTE", message: "Vous devez remplir chaque image avant de partager", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    
     
     
     // MARK: Tap button on square view
@@ -113,9 +157,9 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func didTapOnTopRightButton(_ sender: Any) {
-          whereIsTapped = .topRight
-          showImagePickerController()
-      }
+        whereIsTapped = .topRight
+        showImagePickerController()
+    }
     
     
     @IBAction func didTapOnBottomLeftButton(_ sender: Any) {
@@ -135,7 +179,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     private func showImagePickerController() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.allowsEditing = true
+        imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
@@ -144,10 +188,10 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             sendInGoodButton(originalImage: originalImage, whereIsTapped: whereIsTapped)
-                }
-            dismiss(animated: true, completion: nil)
         }
-
+        dismiss(animated: true, completion: nil)
+    }
+    
     /// sendInGoodButton : Refactor to import image in the good square depending of wich button is tapped
     func sendInGoodButton(originalImage: UIImage, whereIsTapped : PhotoButtonTapped) {
         var goodButton : UIButton {
@@ -159,7 +203,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             case .bottomLeft :
                 return squareButtonBottomLeft
             default:
-                return squareButtonTopRight
+                return squareButtonBottomRight
             }
         }
         goodButton.setImage(originalImage, for: .normal)
@@ -168,16 +212,21 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     
     // MARK: Tap button on chooseView
-
+    
     @IBAction func didTapChooseButton1(_ sender: Any) {
         isChangingDisposition(wichButtonIsHidden: squareButtonTopLeft)
+        dispositionIs = 1
     }
     @IBAction func didTapChooseButton2(_ sender: Any) {
-        isChangingDisposition(wichButtonIsHidden: squareButtonBottomLeft)    }
+        isChangingDisposition(wichButtonIsHidden: squareButtonBottomLeft)
+        dispositionIs = 2
+    }
     @IBAction func didTapChooseButton3(_ sender: Any) {
-        isChangingDisposition(wichButtonIsHidden: squareButtonTopRight)    }
+        isChangingDisposition(wichButtonIsHidden: squareButtonTopRight)
+        dispositionIs = 3
+    }
     
-/// isChangingDisposition : Changing disposition in square view depend of wich one is choosen
+    /// isChangingDisposition : Changing disposition in square view depend of wich one is choosen
     private func isChangingDisposition(wichButtonIsHidden : UIButton) {
         if wichButtonIsHidden == squareButtonTopLeft {
             wichButtonIsHidden.isHidden = true

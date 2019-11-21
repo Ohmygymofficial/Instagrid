@@ -8,6 +8,7 @@
 
 import Foundation
 
-    enum PhotoButtonTapped {
-        case topLeft, topRight, bottomLeft, bottomRight
-    }
+enum PhotoButtonTapped {
+    case topLeft, topRight, bottomLeft, bottomRight
+}
+
