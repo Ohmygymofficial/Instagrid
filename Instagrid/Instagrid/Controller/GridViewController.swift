@@ -92,7 +92,18 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
         shareview.transform = .identity
+        /// UIActivity to share
+        let renderer = UIGraphicsImageRenderer(size: squareUIView.bounds.size)
+        let imageView = renderer.image { ctx in
+            squareUIView.drawHierarchy(in: squareUIView.bounds, afterScreenUpdates: true)
+        }
+        let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
+        present(vc, animated: true)
     }
+
+
+    
+
     
     
     // MARK: Tap button on square view
