@@ -49,6 +49,9 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         changingOrientation()
         /// configure Choose button
         configureChooseButton()
+        ///configure Square Button
+        chooseButtonSquare.isSelected = true
+        resetStateOfSquareButton()
     }
     
     
@@ -224,24 +227,29 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // MARK: Tap button on chooseView
     
-    @IBAction func didTapChooseButton1(_ sender: Any) {
+    @IBAction func didTapChooseButtonRectangleUp(_ sender: Any) {
         userSelection.gridStyle = .rectangleUp
         isChangingDisposition(wichButtonIsHidden: squareButtonTopLeft, userSelection : userSelection)
         resetStateOfChooseButton()
         chooseButtonRectangleUp.isSelected = true
     }
-    @IBAction func didTapChooseButton2(_ sender: Any) {
+    
+    @IBAction func didTapChooseButtonRectangleDown(_ sender: Any) {
         userSelection.gridStyle = .rectangleDown
         isChangingDisposition(wichButtonIsHidden: squareButtonBottomLeft, userSelection : userSelection)
         resetStateOfChooseButton()
         chooseButtonRectangleDown.isSelected = true
     }
-    @IBAction func didTapChooseButton3(_ sender: Any) {
+    
+    
+    @IBAction func didTapChooseButtonSquare(_ sender: Any) {
         userSelection.gridStyle = .square
         isChangingDisposition(wichButtonIsHidden: squareButtonTopRight, userSelection : userSelection)
         resetStateOfChooseButton()
         chooseButtonSquare.isSelected = true
     }
+    
+    
     
     // resetStateOfChooseButton : Func to reset each Choose Button to False Value
     func resetStateOfChooseButton() {
@@ -256,6 +264,12 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.resetStateOfSquareButton()
             if userSelection.gridStyle != .square  {
                 wichButtonIsHidden.isHidden = true
+                ///replace rectangle 3 into rectangle 4
+                if userSelection.gridStyle == .rectangleUp {
+                    self.squareButtonTopRight.setBackgroundImage(UIImage(named: "Rectangle 4"), for: .normal)
+                } else {
+                    self.squareButtonBottomRight.setBackgroundImage(UIImage(named: "Rectangle 4"), for: .normal)
+                }
             }
         }
     }
@@ -267,6 +281,8 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.squareButtonTopRight.isHidden = false
             self.squareButtonBottomLeft.isHidden = false
             self.squareButtonBottomRight.isHidden = false
+            self.squareButtonTopRight.setBackgroundImage(UIImage(named: "Rectangle 3"), for: .normal)
+            self.squareButtonBottomRight.setBackgroundImage(UIImage(named: "Rectangle 3"), for: .normal)
         }
     }
     
