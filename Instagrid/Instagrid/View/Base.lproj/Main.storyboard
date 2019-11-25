@@ -74,13 +74,13 @@
                                 </variation>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wX5-Tt-vxz" userLabel="SquareUIView">
-                                <rect key="frame" x="57" y="172" width="300" height="300"/>
+                                <rect key="frame" x="62" y="172" width="290" height="290"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lhv-yV-HmC" userLabel="Square View">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="lhv-yV-HmC" userLabel="Square View">
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
                                         <subviews>
-                                            <stackView contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-LH-zTH">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
+                                            <stackView contentMode="scaleToFill" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-LH-zTH">
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="150"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azh-ks-P7q" userLabel="SquareButtonTopLeft">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
@@ -90,7 +90,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpN-uI-8Nb" userLabel="SquareButtonTopRight">
-                                                        <rect key="frame" x="150" y="0.0" width="150" height="150"/>
+                                                        <rect key="frame" x="140" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnTopRightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1sf-HV-6RF"/>
@@ -99,18 +99,18 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.062745098040000002" green="0.40000000000000002" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Sas-8m-dzZ">
-                                                <rect key="frame" x="0.0" y="150" width="300" height="150"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Sas-8m-dzZ">
+                                                <rect key="frame" x="0.0" y="140" width="290" height="150"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJy-Ne-hFu" userLabel="SquareButtonBottomLeft">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnBottomLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7RB-Xi-occ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
-                                                        <rect key="frame" x="150" y="0.0" width="150" height="150"/>
+                                                    <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnBottomRightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iqz-kb-zsC"/>
@@ -129,7 +129,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.062745098040000002" green="0.40000000000000002" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="lhv-yV-HmC" firstAttribute="top" secondItem="wX5-Tt-vxz" secondAttribute="top" id="1Gc-iC-2ax"/>
                                     <constraint firstItem="lhv-yV-HmC" firstAttribute="leading" secondItem="wX5-Tt-vxz" secondAttribute="leading" id="21X-VT-iRp"/>
@@ -141,21 +141,21 @@
                             <stackView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5O0-Zq-fP1" userLabel="ChooseView">
                                 <rect key="frame" x="25" y="640" width="364" height="80"/>
                                 <subviews>
-                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbE-SN-Os2" userLabel="chooseButton1">
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbE-SN-Os2" userLabel="chooseButtonRectangleUp">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                         <state key="normal" backgroundImage="Layout 1"/>
                                         <connections>
                                             <action selector="didTapChooseButton1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xgn-GE-677"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kt3-XG-CJC" userLabel="chooseButton2">
+                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kt3-XG-CJC" userLabel="chooseButtonRectangleDown">
                                         <rect key="frame" x="142" y="0.0" width="80" height="80"/>
                                         <state key="normal" backgroundImage="Layout 2"/>
                                         <connections>
                                             <action selector="didTapChooseButton2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fr8-54-PGP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3r-RC-nFF" userLabel="chooseButton3">
+                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3r-RC-nFF" userLabel="chooseButtonSquare">
                                         <rect key="frame" x="284" y="0.0" width="80" height="80"/>
                                         <state key="normal" backgroundImage="Layout 3"/>
                                         <connections>
@@ -333,9 +333,9 @@
                     </view>
                     <connections>
                         <outlet property="arrowUpImage" destination="tiA-aZ-kKL" id="ezn-Jf-7Pn"/>
-                        <outlet property="chooseButton1" destination="mbE-SN-Os2" id="2zI-Sp-iUT"/>
-                        <outlet property="chooseButton2" destination="Kt3-XG-CJC" id="XXh-eF-Ugo"/>
-                        <outlet property="chooseButton3" destination="m3r-RC-nFF" id="fTX-ZU-J4a"/>
+                        <outlet property="chooseButtonRectangleDown" destination="Kt3-XG-CJC" id="XXh-eF-Ugo"/>
+                        <outlet property="chooseButtonRectangleUp" destination="mbE-SN-Os2" id="2zI-Sp-iUT"/>
+                        <outlet property="chooseButtonSquare" destination="m3r-RC-nFF" id="fTX-ZU-J4a"/>
                         <outlet property="chooseView" destination="5O0-Zq-fP1" id="v3P-WZ-LGf"/>
                         <outlet property="instagrid" destination="dBg-VU-vYa" id="k0Z-W3-5vO"/>
                         <outlet property="shareview" destination="nZu-Ow-Rip" id="pgO-Qf-1k7"/>

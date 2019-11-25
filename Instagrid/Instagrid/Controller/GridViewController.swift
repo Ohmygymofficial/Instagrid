@@ -29,13 +29,14 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak private var squareButtonBottomRight: UIButton!
     /// ChooseView
     @IBOutlet weak private var chooseView: UIStackView!
-    @IBOutlet weak var chooseButton1: UIButton!
-    @IBOutlet weak var chooseButton2: UIButton!
-    @IBOutlet weak var chooseButton3: UIButton!
+    @IBOutlet weak var chooseButtonRectangleUp: UIButton!
+    @IBOutlet weak var chooseButtonRectangleDown: UIButton!
+    @IBOutlet weak var chooseButtonSquare: UIButton!
     /// declare whereIsTapped : identify the good square to import a photo, default 1
     var whereIsTapped : PhotoButtonTapped = .topLeft
-    /// declare dispositionIs as a variant to check how much image user have to load before to share
-    var dispositionIs = 3
+    /// declare gridStyle as variant to know wich Style of grid user want
+    var userSelection = SelectedGrid()
+    
     
     
     // MARK: viewDidLoad
@@ -46,7 +47,10 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         shareview.addGestureRecognizer(gestureRecognizer)
         /// detect device orientation for gesture direction
         changingOrientation()
+        /// configure Choose button
+        configureChooseButton()
     }
+    
     
     
     // MARK: willTransition:
@@ -70,6 +74,14 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.swipeUpLabel.isHidden = false
             self.swipeUpLabel.transform = .identity
         }
+    }
+    
+    // configureChooseButton : To change image for each button depend if selected or no
+    func configureChooseButton() {
+        let image = UIImage(named: "Selected")
+        chooseButtonRectangleUp.setBackgroundImage(image, for: .selected)
+        chooseButtonRectangleDown.setBackgroundImage(image, for: .selected)
+        chooseButtonSquare.setBackgroundImage(image, for: .selected)
     }
     
     
@@ -102,35 +114,36 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             squareUIView.drawHierarchy(in: squareUIView.bounds, afterScreenUpdates: true)
         }
         /// have to check if the square is complete
-        wichDispositionis()
+        squareIsItComplete()
         
         /// share with UIActivity
-            let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
-            present(vc, animated: true)
+        let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
+        present(vc, animated: true)
     }
     
     // Check depend of the disposition choosen
-    func wichDispositionis() {
-        /// if dispositionIs 1 : Must Have TopRight, BottomLeft, BottomRight
-        if dispositionIs == 1 {
+    func squareIsItComplete() {
+        /// if rectangleUp : Must Have TopRight, BottomLeft, BottomRight
+        if userSelection.gridStyle == .rectangleUp {
             checkImagesIsPresent(neededButtonImage: squareButtonTopRight)
             checkImagesIsPresent(neededButtonImage: squareButtonBottomLeft)
             checkImagesIsPresent(neededButtonImage: squareButtonBottomRight)
         }
-        /// if dispositionIs 2 : Must Have TopLeft, TopRight, BottomRight
-        if dispositionIs == 2 {
+        /// if rectangleDown : Must Have TopLeft, TopRight, BottomRight
+        if userSelection.gridStyle == .rectangleDown {
             checkImagesIsPresent(neededButtonImage: squareButtonTopLeft)
             checkImagesIsPresent(neededButtonImage: squareButtonTopRight)
             checkImagesIsPresent(neededButtonImage: squareButtonBottomRight)
         }
-        /// if dispositionIs 3 : Must Have TopLeft, TopRight, BottomLeft, BottomRight
-        if dispositionIs == 3 {
+        /// if square : Must Have TopLeft, TopRight, BottomLeft, BottomRight
+        if userSelection.gridStyle == .square {
             checkImagesIsPresent(neededButtonImage: squareButtonTopLeft)
             checkImagesIsPresent(neededButtonImage: squareButtonTopRight)
             checkImagesIsPresent(neededButtonImage: squareButtonBottomLeft)
             checkImagesIsPresent(neededButtonImage: squareButtonBottomRight)
         }
     }
+    
     
     // Check if user loaded image into each square
     func checkImagesIsPresent (neededButtonImage: UIButton) {
@@ -146,8 +159,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
-    
-    
     
     
     // MARK: Tap button on square view
@@ -214,62 +225,51 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     // MARK: Tap button on chooseView
     
     @IBAction func didTapChooseButton1(_ sender: Any) {
-        isChangingDisposition(wichButtonIsHidden: squareButtonTopLeft)
-        dispositionIs = 1
+        userSelection.gridStyle = .rectangleUp
+        isChangingDisposition(wichButtonIsHidden: squareButtonTopLeft, userSelection : userSelection)
+        resetStateOfChooseButton()
+        chooseButtonRectangleUp.isSelected = true
     }
     @IBAction func didTapChooseButton2(_ sender: Any) {
-        isChangingDisposition(wichButtonIsHidden: squareButtonBottomLeft)
-        dispositionIs = 2
+        userSelection.gridStyle = .rectangleDown
+        isChangingDisposition(wichButtonIsHidden: squareButtonBottomLeft, userSelection : userSelection)
+        resetStateOfChooseButton()
+        chooseButtonRectangleDown.isSelected = true
     }
     @IBAction func didTapChooseButton3(_ sender: Any) {
-        isChangingDisposition(wichButtonIsHidden: squareButtonTopRight)
-        dispositionIs = 3
+        userSelection.gridStyle = .square
+        isChangingDisposition(wichButtonIsHidden: squareButtonTopRight, userSelection : userSelection)
+        resetStateOfChooseButton()
+        chooseButtonSquare.isSelected = true
+    }
+    
+    // resetStateOfChooseButton : Func to reset each Choose Button to False Value
+    func resetStateOfChooseButton() {
+        chooseButtonRectangleUp.isSelected = false
+        chooseButtonRectangleDown.isSelected = false
+        chooseButtonSquare.isSelected = false
     }
     
     /// isChangingDisposition : Changing disposition in square view depend of wich one is choosen
-    private func isChangingDisposition(wichButtonIsHidden : UIButton) {
-        if wichButtonIsHidden == squareButtonTopLeft {
-            wichButtonIsHidden.isHidden = true
-            squareButtonTopRight.isHidden = false
-            squareButtonBottomLeft.isHidden = false
-            squareButtonBottomRight.isHidden = false
-        }else if wichButtonIsHidden == squareButtonBottomLeft {
-            wichButtonIsHidden.isHidden = true
-            squareButtonTopLeft.isHidden = false
-            squareButtonTopRight.isHidden = false
-            squareButtonBottomRight.isHidden = false
-        }else{
-            squareButtonTopLeft.isHidden = false
-            squareButtonTopRight.isHidden = false
-            squareButtonBottomLeft.isHidden = false
-            squareButtonBottomRight.isHidden = false
-        }
-    }
-    
-    
-    
-    class SelectedGrid: UIView {
-        
-        enum Style {
-            case square, rectangleUp, rectangleDown
-        }
-        
-        var style: Style = .square {
-            didSet {
-                setStyle(style)
-            }
-        }
-        
-        private func setStyle(_ style: Style) {
-            switch style {
-            case .square:
-                print("Choix 1")
-            case .rectangleUp:
-                print("Choix 2")
-            case .rectangleDown:
-                print("Choix 3")
+    private func isChangingDisposition(wichButtonIsHidden : UIButton, userSelection : SelectedGrid) {
+        UIView.animate(withDuration: 0.3) {
+            self.resetStateOfSquareButton()
+            if userSelection.gridStyle != .square  {
+                wichButtonIsHidden.isHidden = true
             }
         }
     }
+    
+    // resetStateOfSquareButton : Func to reset Square Button to False Value
+    func resetStateOfSquareButton() {
+        UIView.animate(withDuration: 0.3) {
+            self.squareButtonTopLeft.isHidden = false
+            self.squareButtonTopRight.isHidden = false
+            self.squareButtonBottomLeft.isHidden = false
+            self.squareButtonBottomRight.isHidden = false
+        }
+    }
+    
 }
+
 
