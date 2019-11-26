@@ -16,7 +16,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak private var instagrid: UIImageView!
     /// ShareView
     @IBOutlet weak private var shareview: UIStackView!
-    @IBOutlet weak private var swipeUpLabel: UILabel!
+    @IBOutlet weak private var swipeLabel: UILabel!
     @IBOutlet weak private var arrowUpImage: UIImageView!
     /// SquareView
     @IBOutlet weak private var squareUIView: UIView!
@@ -67,15 +67,11 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// changingOrientation :detect device orientation for gesture direction
     func changingOrientation() {
         if UIDevice.current.orientation == .landscapeRight {
-            self.swipeUpLabel.text = "Swipe right to share"
-            self.swipeUpLabel.isHidden = false
+            swipeLabel.text = "Swipe right to share"
         } else if UIDevice.current.orientation == .landscapeLeft {
-            swipeUpLabel.text = "Swipe left to share"
-            self.swipeUpLabel.isHidden = false
+            swipeLabel.text = "Swipe left to share"
         } else {
-            self.swipeUpLabel.text = "Swipe up to share"
-            self.swipeUpLabel.isHidden = false
-            self.swipeUpLabel.transform = .identity
+            swipeLabel.text = "Swipe up to share"
         }
     }
     
@@ -105,7 +101,11 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// transformShareView : Action When user didSwipe began/changed on shareView
     private func transformShareView(gesture : UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareview)
-        shareview.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        if UIDevice.current.orientation == .landscapeRight || UIDevice.current.orientation == .landscapeLeft {
+            shareview.transform = CGAffineTransform(translationX: translation.x, y: 0)
+        } else {
+            shareview.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        }
     }
     
     /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
