@@ -17,7 +17,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// ShareView
     @IBOutlet weak private var shareview: UIStackView!
     @IBOutlet weak private var swipeLabel: UILabel!
-    @IBOutlet weak private var arrowUpImage: UIImageView!
+    @IBOutlet weak private var arrowForSwipe: UIImageView!
     /// SquareView
     @IBOutlet weak private var squareUIView: UIView!
     @IBOutlet weak private var squareView: UIStackView!
@@ -68,22 +68,28 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func changingOrientation() {
         if UIDevice.current.orientation == .landscapeRight {
             swipeLabel.text = "Swipe right to share"
-            arrowUpImage.image = UIImage(named: "Arrow Right")
+            arrowForSwipe.image = UIImage(named: "Arrow Right")
         } else if UIDevice.current.orientation == .landscapeLeft {
             swipeLabel.text = "Swipe left to share"
-            arrowUpImage.image = UIImage(named: "Arrow Left")
+            arrowForSwipe.image = UIImage(named: "Arrow Left")
         } else {
             swipeLabel.text = "Swipe up to share"
-            arrowUpImage.image = UIImage(named: "Arrow Up")
+            arrowForSwipe.image = UIImage(named: "Arrow Up")
         }
     }
     
     // configureChooseButton : To change image for each button depend if selected or no
     func configureChooseButton() {
         let image = UIImage(named: "Selected")
-        chooseButtonRectangleUp.setBackgroundImage(image, for: .selected)
-        chooseButtonRectangleDown.setBackgroundImage(image, for: .selected)
-        chooseButtonSquare.setBackgroundImage(image, for: .selected)
+        chooseButtonRectangleUp.setImage(image, for: .selected)
+        chooseButtonRectangleUp.contentVerticalAlignment = .fill
+        chooseButtonRectangleUp.contentHorizontalAlignment = .fill
+        chooseButtonRectangleDown.setImage(image, for: .selected)
+        chooseButtonRectangleDown.contentVerticalAlignment = .fill
+        chooseButtonRectangleDown.contentHorizontalAlignment = .fill
+        chooseButtonSquare.setImage(image, for: .selected)
+        chooseButtonSquare.contentVerticalAlignment = .fill
+        chooseButtonSquare.contentHorizontalAlignment = .fill
     }
     
     
@@ -288,7 +294,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.squareButtonBottomRight.setBackgroundImage(UIImage(named: "Rectangle 3"), for: .normal)
         }
     }
-    
 }
 
 
