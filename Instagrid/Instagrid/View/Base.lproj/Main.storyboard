@@ -30,7 +30,6 @@
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" verticalHuggingPriority="244" insetsLayoutMarginsFromSafeArea="NO" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="tiA-aZ-kKL">
                                         <rect key="frame" x="0.0" y="0.0" width="180" height="82.333333333333329"/>
-                                        <variation key="heightClass=compact" image="Arrow Left"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe Right to Share" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="E8U-nq-jsH" userLabel="SwipeLabel">
                                         <rect key="frame" x="0.0" y="49.333333333333343" width="180" height="20.666666666666671"/>
@@ -359,7 +358,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow Left" width="9.6666669845581055" height="13.333333015441895"/>
         <image name="Arrow Up" width="13.333333015441895" height="9.6666669845581055"/>
         <image name="Instagrid" width="124" height="39"/>
         <image name="Layout 1" width="80" height="80"/>

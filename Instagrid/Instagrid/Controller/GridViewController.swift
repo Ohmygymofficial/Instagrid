@@ -68,10 +68,13 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func changingOrientation() {
         if UIDevice.current.orientation == .landscapeRight {
             swipeLabel.text = "Swipe right to share"
+            arrowUpImage.image = UIImage(named: "Arrow Right")
         } else if UIDevice.current.orientation == .landscapeLeft {
             swipeLabel.text = "Swipe left to share"
+            arrowUpImage.image = UIImage(named: "Arrow Left")
         } else {
             swipeLabel.text = "Swipe up to share"
+            arrowUpImage.image = UIImage(named: "Arrow Up")
         }
     }
     
