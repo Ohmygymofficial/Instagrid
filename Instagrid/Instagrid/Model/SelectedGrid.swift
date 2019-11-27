@@ -21,6 +21,7 @@ class SelectedGrid {
     }
     
     
+    
     private func setStyle(_ gridStyle: SelectedGridStyle) {
         switch gridStyle {
         case .square:
@@ -32,4 +33,9 @@ class SelectedGrid {
             print("Choix 3 Rectangle bas: code à ajouter ici")
         }
     }
+    
+
+     
+    
+    
 } 

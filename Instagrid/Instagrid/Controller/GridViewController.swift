@@ -29,19 +29,20 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak private var squareButtonBottomRight: UIButton!
     /// ChooseView
     @IBOutlet weak private var chooseView: UIStackView!
-    @IBOutlet weak var chooseButtonRectangleUp: UIButton!
-    @IBOutlet weak var chooseButtonRectangleDown: UIButton!
-    @IBOutlet weak var chooseButtonSquare: UIButton!
+    @IBOutlet weak private var chooseButtonRectangleUp: UIButton!
+    @IBOutlet weak private var chooseButtonRectangleDown: UIButton!
+    @IBOutlet weak private var chooseButtonSquare: UIButton!
+    /// ChooseVIew COLLECTION
+    @IBOutlet private var selectedGridCollection: [UIButton]!
+    
+    
     /// declare whereIsTapped : identify the good square to import a photo, default 1
     var whereIsTapped : PhotoButtonTapped = .topLeft
     /// declare gridStyle as variant to know wich Style of grid user want
-    var userSelection = SelectedGrid()
+    let userSelection = SelectedGrid()
     /// declare Bool slideLenghtIsOk to confirm the swipe action
     var slideLenghtIsOk = false
-    /*
-     /// declare Bool isPortrait to be easier to read the code
-    var isPortrait = true
-     */
+    /// let orientation instance to use Orientation Class
     let orientation = Orientation()
     
     
@@ -67,48 +68,19 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         orientation.changingOrientation(swipeLabel: swipeLabel, arrowForSwipe: arrowForSwipe)
     }
     
-    /*
-    // MARK: orientation is changing
-    /// changingOrientation :detect device orientation for gesture direction
-    func changingOrientation() {
-        checkOrientationMode()
-        if !isPortrait {
-            swipeLabel.text = "Swipe left to share"
-            arrowForSwipe.image = UIImage(named: "Arrow Left")
-        } else {
-            swipeLabel.text = "Swipe up to share"
-            arrowForSwipe.image = UIImage(named: "Arrow Up")
-        }
-    }
-    
-    
-    /// checkOrientationMode() : Func to check orientation mode and update var isPortrait
-    private func checkOrientationMode() {
-        if UIDevice.current.orientation == .landscapeRight || UIDevice.current.orientation == .landscapeLeft {
-            isPortrait = false
-        } else {
-            isPortrait = true
-        }
-    }
-    */
-    
+ 
     // configureChooseButton : To change image for each button depend if selected or no
     func configureChooseButton() {
         let image = UIImage(named: "Selected")
-        chooseButtonRectangleUp.setImage(image, for: .selected)
-        chooseButtonRectangleUp.contentVerticalAlignment = .fill
-        chooseButtonRectangleUp.contentHorizontalAlignment = .fill
-        chooseButtonRectangleDown.setImage(image, for: .selected)
-        chooseButtonRectangleDown.contentVerticalAlignment = .fill
-        chooseButtonRectangleDown.contentHorizontalAlignment = .fill
-        chooseButtonSquare.setImage(image, for: .selected)
-        chooseButtonSquare.contentVerticalAlignment = .fill
-        chooseButtonSquare.contentHorizontalAlignment = .fill
+        for button in selectedGridCollection {
+            button.setImage(image, for: .selected)
+            button.contentVerticalAlignment = .fill
+            button.contentHorizontalAlignment = .fill
+        }
     }
     
     
     // MARK: Swipe on share view
-    
     /// userDidSwipe : Case When user didSwipe on shareView
     @objc func userDidSwipe(sender: UIPanGestureRecognizer) {
         switch sender.state {
@@ -162,8 +134,10 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         UIView.animate(withDuration: 0.3, animations: {
             if !self.orientation.isPortrait {
                 self.squareUIView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
+                self.shareView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
             } else {
                 self.squareUIView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
+                self.shareView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
             }
         })
         { (success) in
@@ -295,23 +269,33 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
         goodButton.setImage(originalImage, for: .normal)
+        goodButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     
     
     // MARK: Tap button on chooseView
+    // resetStateOfSelectedGridCollection : Func to reset each Choose Button to False Value
+    func resetStateOfSelectedGridCollection(_ sender: [UIButton]) {
+        for button in selectedGridCollection {
+            button.isSelected = false
+        }
+    }
+    
     
     @IBAction func didTapChooseButtonRectangleUp(_ sender: Any) {
         userSelection.gridStyle = .rectangleUp
         isChangingDisposition(wichButtonIsHidden: squareButtonTopLeft, userSelection : userSelection)
-        resetStateOfChooseButton()
+        resetStateOfSelectedGridCollection(selectedGridCollection)
+        //resetStateOfChooseButton()
         chooseButtonRectangleUp.isSelected = true
     }
     
     @IBAction func didTapChooseButtonRectangleDown(_ sender: Any) {
         userSelection.gridStyle = .rectangleDown
         isChangingDisposition(wichButtonIsHidden: squareButtonBottomLeft, userSelection : userSelection)
-        resetStateOfChooseButton()
+        resetStateOfSelectedGridCollection(selectedGridCollection)
+        // resetStateOfChooseButton()
         chooseButtonRectangleDown.isSelected = true
     }
     
@@ -319,18 +303,11 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBAction func didTapChooseButtonSquare(_ sender: Any) {
         userSelection.gridStyle = .square
         isChangingDisposition(wichButtonIsHidden: squareButtonTopRight, userSelection : userSelection)
-        resetStateOfChooseButton()
+        resetStateOfSelectedGridCollection(selectedGridCollection)
+        // resetStateOfChooseButton()
         chooseButtonSquare.isSelected = true
     }
     
-    
-    
-    // resetStateOfChooseButton : Func to reset each Choose Button to False Value
-    func resetStateOfChooseButton() {
-        chooseButtonRectangleUp.isSelected = false
-        chooseButtonRectangleDown.isSelected = false
-        chooseButtonSquare.isSelected = false
-    }
     
     /// isChangingDisposition : Changing disposition in square view depend of wich one is choosen
     private func isChangingDisposition(wichButtonIsHidden : UIButton, userSelection : SelectedGrid) {
