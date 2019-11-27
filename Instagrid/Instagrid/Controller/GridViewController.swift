@@ -38,8 +38,11 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var userSelection = SelectedGrid()
     /// declare Bool slideLenghtIsOk to confirm the swipe action
     var slideLenghtIsOk = false
-    /// declare Bool isPortrait to be easier to read the code
+    /*
+     /// declare Bool isPortrait to be easier to read the code
     var isPortrait = true
+     */
+    let orientation = Orientation()
     
     
     // MARK: viewDidLoad
@@ -49,7 +52,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
         shareView.addGestureRecognizer(gestureRecognizer)
         /// detect device orientation for gesture direction
-        changingOrientation()
+        orientation.changingOrientation(swipeLabel: swipeLabel, arrowForSwipe: arrowForSwipe)
         /// configure Choose button
         configureChooseButton()
         ///configure Square Button
@@ -58,14 +61,13 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
-    
     // MARK: willTransition:
     /// willTransition :detect device orientation for gesture direction
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        changingOrientation()
+        orientation.changingOrientation(swipeLabel: swipeLabel, arrowForSwipe: arrowForSwipe)
     }
     
-    
+    /*
     // MARK: orientation is changing
     /// changingOrientation :detect device orientation for gesture direction
     func changingOrientation() {
@@ -79,6 +81,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
+    
     /// checkOrientationMode() : Func to check orientation mode and update var isPortrait
     private func checkOrientationMode() {
         if UIDevice.current.orientation == .landscapeRight || UIDevice.current.orientation == .landscapeLeft {
@@ -87,6 +90,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             isPortrait = true
         }
     }
+    */
     
     // configureChooseButton : To change image for each button depend if selected or no
     func configureChooseButton() {
@@ -120,8 +124,8 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// transformShareView : Action When user didSwipe began/changed on shareView
     private func transformShareView(gesture : UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareView)
-        checkOrientationMode()
-        if !isPortrait {
+        orientation.checkOrientationMode()
+        if !orientation.isPortrait {
             shareView.transform = CGAffineTransform(translationX: translation.x, y: 0)
             squareUIView.transform = CGAffineTransform(translationX: translation.x, y: 0)
             slideLenghtIsSuffisant(translation: translation.x)
@@ -156,7 +160,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     ///animationBeforeSharing : To animate SquareView outside the screen before sharing
     private func animationBeforeSharing(sizeScreenWidth: CGFloat, sizeScreenHeight: CGFloat) {
         UIView.animate(withDuration: 0.3, animations: {
-            if !self.isPortrait {
+            if !self.orientation.isPortrait {
                 self.squareUIView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
             } else {
                 self.squareUIView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
@@ -165,6 +169,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         { (success) in
             if success {
                 self.sharePhoto()
+                self.animationReturnBack()
             }
         }
     }
@@ -181,15 +186,14 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         /// share with UIActivity
         let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
         present(vc, animated: true)
-        animationReturnBack()
     }
     
     ///animationReturnBack : To animate the return of the SquareView to his initial position
     private func animationReturnBack() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3, animations: {
             self.shareView.transform = .identity
             self.squareUIView.transform = .identity
-        }
+        })
     }
     
     

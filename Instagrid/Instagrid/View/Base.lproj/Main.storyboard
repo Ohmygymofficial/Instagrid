@@ -104,14 +104,14 @@
                                                 <rect key="frame" x="0.0" y="140" width="290" height="150"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJy-Ne-hFu" userLabel="SquareButtonBottomLeft">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnBottomLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7RB-Xi-occ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
-                                                        <rect key="frame" x="140" y="0.0" width="150" height="150"/>
+                                                    <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnBottomRightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iqz-kb-zsC"/>
