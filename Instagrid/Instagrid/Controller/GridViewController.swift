@@ -15,7 +15,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// All objects of the view
     @IBOutlet weak private var instagrid: UIImageView!
     /// ShareView
-    @IBOutlet weak private var shareview: UIStackView!
+    @IBOutlet weak private var shareView: UIStackView!
     @IBOutlet weak private var swipeLabel: UILabel!
     @IBOutlet weak private var arrowForSwipe: UIImageView!
     /// SquareView
@@ -36,7 +36,8 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var whereIsTapped : PhotoButtonTapped = .topLeft
     /// declare gridStyle as variant to know wich Style of grid user want
     var userSelection = SelectedGrid()
-    
+    /// declare Bool slideLenghtIsOk to confirm the swipe action
+    var slideLenghtIsOk = false
     
     
     // MARK: viewDidLoad
@@ -44,7 +45,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
         /// Setting a let gestureRecognizer for detect user's gesture
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
-        shareview.addGestureRecognizer(gestureRecognizer)
+        shareView.addGestureRecognizer(gestureRecognizer)
         /// detect device orientation for gesture direction
         changingOrientation()
         /// configure Choose button
@@ -109,28 +110,48 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     /// transformShareView : Action When user didSwipe began/changed on shareView
     private func transformShareView(gesture : UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: shareview)
+        ///declare a let to share only if the slide is > to 50
+        let slideLenght: CGFloat = 50
+        let translation = gesture.translation(in: shareView)
         if UIDevice.current.orientation == .landscapeRight || UIDevice.current.orientation == .landscapeLeft {
-            shareview.transform = CGAffineTransform(translationX: translation.x, y: 0)
+            shareView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+            squareUIView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+            if translation.x < -slideLenght {
+                slideLenghtIsOk = true
+                shareView.transform = CGAffineTransform(translationX: translation.x*4, y: 0)
+                squareUIView.transform = CGAffineTransform(translationX: translation.x*4, y: 0)
+            } else { slideLenghtIsOk = false }
         } else {
-            shareview.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            shareView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            squareUIView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+             if translation.y < -slideLenght {
+                slideLenghtIsOk = true
+                shareView.transform = CGAffineTransform(translationX: 0, y: translation.y*4)
+                squareUIView.transform = CGAffineTransform(translationX: 0, y: translation.y*4)
+            } else { slideLenghtIsOk = false }
         }
     }
     
+    
     /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
-        shareview.transform = .identity
-        /// convert UIView into Image
-        let renderer = UIGraphicsImageRenderer(size: squareUIView.bounds.size)
-        let imageView = renderer.image { ctx in
-            squareUIView.drawHierarchy(in: squareUIView.bounds, afterScreenUpdates: true)
+        if slideLenghtIsOk {
+            /// have to check if the square is complete
+            squareIsItComplete()
+            /// convert UIView into Image
+            let renderer = UIGraphicsImageRenderer(size: squareUIView.bounds.size)
+            let imageView = renderer.image { ctx in
+                squareUIView.drawHierarchy(in: squareUIView.bounds, afterScreenUpdates: true)
+            }
+            /// share with UIActivity
+            let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
+            present(vc, animated: true)
+            shareView.transform = .identity
+            squareUIView.transform = .identity
+        } else {
+            shareView.transform = .identity
+            squareUIView.transform = .identity
         }
-        /// have to check if the square is complete
-        squareIsItComplete()
-        
-        /// share with UIActivity
-        let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
-        present(vc, animated: true)
     }
     
     // Check depend of the disposition choosen

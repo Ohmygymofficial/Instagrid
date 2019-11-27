@@ -345,7 +345,7 @@
                         <outlet property="chooseButtonSquare" destination="m3r-RC-nFF" id="fTX-ZU-J4a"/>
                         <outlet property="chooseView" destination="5O0-Zq-fP1" id="v3P-WZ-LGf"/>
                         <outlet property="instagrid" destination="dBg-VU-vYa" id="k0Z-W3-5vO"/>
-                        <outlet property="shareview" destination="nZu-Ow-Rip" id="pgO-Qf-1k7"/>
+                        <outlet property="shareView" destination="nZu-Ow-Rip" id="pgO-Qf-1k7"/>
                         <outlet property="squareBottomView" destination="Sas-8m-dzZ" id="Rf9-vl-sfX"/>
                         <outlet property="squareButtonBottomLeft" destination="rJy-Ne-hFu" id="WOw-ws-bxJ"/>
                         <outlet property="squareButtonBottomRight" destination="rPt-fO-ZY3" id="jXC-WW-Adh"/>
