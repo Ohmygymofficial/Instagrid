@@ -83,14 +83,14 @@
                                             <stackView contentMode="scaleToFill" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-LH-zTH">
                                                 <rect key="frame" x="0.0" y="0.0" width="290" height="150"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azh-ks-P7q" userLabel="SquareButtonTopLeft">
+                                                    <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azh-ks-P7q" userLabel="SquareButtonTopLeft">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnTopLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cth-Vj-oqb"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpN-uI-8Nb" userLabel="SquareButtonTopRight">
+                                                    <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpN-uI-8Nb" userLabel="SquareButtonTopRight">
                                                         <rect key="frame" x="140" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
@@ -103,14 +103,14 @@
                                             <stackView opaque="NO" contentMode="center" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Sas-8m-dzZ">
                                                 <rect key="frame" x="0.0" y="140" width="290" height="150"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJy-Ne-hFu" userLabel="SquareButtonBottomLeft">
+                                                    <button opaque="NO" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJy-Ne-hFu" userLabel="SquareButtonBottomLeft">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnBottomLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7RB-Xi-occ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
+                                                    <button opaque="NO" tag="4" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
                                                         <rect key="frame" x="140" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
@@ -150,6 +150,7 @@
                                         <state key="normal" backgroundImage="Layout 1"/>
                                         <connections>
                                             <action selector="didTapChooseButtonRectangleUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vD2-on-WFr"/>
+                                            <action selector="resetStateOfSelectedGridCollection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AiS-tq-4vh"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kt3-XG-CJC" userLabel="chooseButtonRectangleDown">
@@ -160,6 +161,7 @@
                                         <state key="normal" backgroundImage="Layout 2"/>
                                         <connections>
                                             <action selector="didTapChooseButtonRectangleDown:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F8B-Rc-zee"/>
+                                            <action selector="resetStateOfSelectedGridCollection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pvx-sh-qzh"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3r-RC-nFF" userLabel="chooseButtonSquare">
@@ -170,6 +172,7 @@
                                         <state key="normal" backgroundImage="Layout 3"/>
                                         <connections>
                                             <action selector="didTapChooseButtonSquare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VEU-1r-Ief"/>
+                                            <action selector="resetStateOfSelectedGridCollection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cbi-u0-hPe"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -355,9 +358,9 @@
                         <outlet property="squareUpView" destination="Hat-LH-zTH" id="KI4-w9-TyG"/>
                         <outlet property="squareView" destination="lhv-yV-HmC" id="gL7-hp-LQJ"/>
                         <outlet property="swipeLabel" destination="E8U-nq-jsH" id="VQd-51-pV5"/>
-                        <outletCollection property="selectedGridCollection" destination="mbE-SN-Os2" collectionClass="NSMutableArray" id="Jd9-No-SxT"/>
-                        <outletCollection property="selectedGridCollection" destination="Kt3-XG-CJC" collectionClass="NSMutableArray" id="3Pj-WQ-HbE"/>
-                        <outletCollection property="selectedGridCollection" destination="m3r-RC-nFF" collectionClass="NSMutableArray" id="kLb-p7-izU"/>
+                        <outletCollection property="selectedGridCollection" destination="mbE-SN-Os2" collectionClass="NSMutableArray" id="TaZ-8z-quZ"/>
+                        <outletCollection property="selectedGridCollection" destination="Kt3-XG-CJC" collectionClass="NSMutableArray" id="l9u-E7-5ze"/>
+                        <outletCollection property="selectedGridCollection" destination="m3r-RC-nFF" collectionClass="NSMutableArray" id="mtn-aa-21b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

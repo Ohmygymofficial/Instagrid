@@ -36,14 +36,16 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet private var selectedGridCollection: [UIButton]!
     
     
+    
+    
+    
     /// declare whereIsTapped : identify the good square to import a photo, default 1
     var whereIsTapped : PhotoButtonTapped = .topLeft
     /// declare gridStyle as variant to know wich Style of grid user want
     let userSelection = SelectedGrid()
-    /// declare Bool slideLenghtIsOk to confirm the swipe action
-    var slideLenghtIsOk = false
-    /// let orientation instance to use Orientation Class
-    let orientation = Orientation()
+    /// let model to use var and func of Class GridModel
+    let model = GridModel()
+    
     
     
     // MARK: viewDidLoad
@@ -52,8 +54,8 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         /// Setting a let gestureRecognizer for detect user's gesture
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
         shareView.addGestureRecognizer(gestureRecognizer)
-        /// detect device orientation for gesture direction
-        orientation.changingOrientation(swipeLabel: swipeLabel, arrowForSwipe: arrowForSwipe)
+        /// configure orientation Arrow image and Swipe Label
+        configureOrientation()
         /// configure Choose button
         configureChooseButton()
         ///configure Square Button
@@ -65,10 +67,18 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     // MARK: willTransition:
     /// willTransition :detect device orientation for gesture direction
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        orientation.changingOrientation(swipeLabel: swipeLabel, arrowForSwipe: arrowForSwipe)
+        configureOrientation()
     }
     
- 
+    
+    func configureOrientation() {
+        let (swipeLabelText, arrowImage) = model.makeSwipeLabelTextAndArrow()
+        print("L'image est : \(arrowImage)")
+        arrowForSwipe.image = arrowImage
+        swipeLabel.text = swipeLabelText
+    }
+    
+    
     // configureChooseButton : To change image for each button depend if selected or no
     func configureChooseButton() {
         let image = UIImage(named: "Selected")
@@ -85,7 +95,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @objc func userDidSwipe(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began, .changed:
-            transformShareView(gesture: sender)
+            transformShareViewAndSquareView(gesture: sender)
         case .ended, .cancelled:
             askingShareDone(gesture: sender)
         default:
@@ -93,60 +103,85 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    /// transformShareView : Action When user didSwipe began/changed on shareView
-    private func transformShareView(gesture : UIPanGestureRecognizer) {
+    /*
+     /// transformShareView : Action When user didSwipe began/changed on shareView
+     private func transformShareView(gesture : UIPanGestureRecognizer) {
+     let translation = gesture.translation(in: shareView)
+     orientation.checkOrientationMode()
+     if !orientation.isPortrait {
+     shareView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+     squareUIView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+     slideLenghtIsSuffisant(translation: translation.x)
+     } else {
+     shareView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+     squareUIView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+     slideLenghtIsSuffisant(translation: translation.y)
+     }
+     }
+     */
+    
+    /// transformShareViewAndSquareView : Give instruction to do When user didSwipe began/changed on shareView
+    private func transformShareViewAndSquareView(gesture : UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareView)
-        orientation.checkOrientationMode()
-        if !orientation.isPortrait {
-            shareView.transform = CGAffineTransform(translationX: translation.x, y: 0)
-            squareUIView.transform = CGAffineTransform(translationX: translation.x, y: 0)
-            slideLenghtIsSuffisant(translation: translation.x)
-        } else {
-            shareView.transform = CGAffineTransform(translationX: 0, y: translation.y)
-            squareUIView.transform = CGAffineTransform(translationX: 0, y: translation.y)
-            slideLenghtIsSuffisant(translation: translation.y)
-        }
-    }
-    
-    
-    /// slideLenghtIsSuffisant private func to check if the slideLenght is suffisant
-    private func slideLenghtIsSuffisant(translation: CGFloat) {
-        if translation < -50 {
-            slideLenghtIsOk = true
-        } else { slideLenghtIsOk = false }
+        let transformation = model.giveTransformationSwipeValue(translation: translation)
+        shareView.transform = transformation
+        squareUIView.transform = transformation
     }
     
     
     
     /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
-        if slideLenghtIsOk {
-            let sizeScreenWidth = UIScreen.main.bounds.width
-            let sizeScreenHeight = UIScreen.main.bounds.height
-            animationBeforeSharing(sizeScreenWidth: sizeScreenWidth, sizeScreenHeight: sizeScreenHeight)
+        ///je dois vérifier si portrait ou paysage
+        let isPortrait = model.isOrientationPortrait()
+        /// je dois vérifier si le swipe est suffisant
+        let translation = gesture.translation(in: shareView)
+        let isSwipeLenghtIsOk = model.isSlideLenghtIsSuffisant(translation: translation)
+        /// je dois vérifier la taille de l'ecran
+        let (sizeScreenWidth, sizeScreenHeight) = model.giveTheSizeOfTheScreen()
+        /// je dois lancer une animation puis share la photo
+        ///ou je dois revenir a letat normal
+        if isSwipeLenghtIsOk {
+            UIView.animate(withDuration: 0.3, animations: {
+                if !isPortrait {
+                    self.squareUIView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
+                    self.shareView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
+                } else {
+                    self.squareUIView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
+                    self.shareView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
+                }
+            })
+            { (success) in
+                if success {
+                    self.sharePhoto()
+                    self.animationReturnBack()
+                }
+            }
         } else {
             animationReturnBack()
         }
     }
     
-    ///animationBeforeSharing : To animate SquareView outside the screen before sharing
-    private func animationBeforeSharing(sizeScreenWidth: CGFloat, sizeScreenHeight: CGFloat) {
-        UIView.animate(withDuration: 0.3, animations: {
-            if !self.orientation.isPortrait {
-                self.squareUIView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
-                self.shareView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
-            } else {
-                self.squareUIView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
-                self.shareView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
-            }
-        })
-        { (success) in
-            if success {
-                self.sharePhoto()
-                self.animationReturnBack()
-            }
-        }
-    }
+    /*
+     ///animationBeforeSharing : To animate SquareView outside the screen before sharing
+     private func animationBeforeSharing(sizeScreenWidth: CGFloat, sizeScreenHeight: CGFloat) {
+     UIView.animate(withDuration: 0.3, animations: {
+     if !self.orientation.isPortrait {
+     self.squareUIView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
+     self.shareView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
+     } else {
+     self.squareUIView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
+     self.shareView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
+     }
+     })
+     { (success) in
+     if success {
+     self.sharePhoto()
+     self.animationReturnBack()
+     }
+     }
+     }
+     */
     
     /// sharePhoto() : to share photo with UIActivity
     private func sharePhoto() {
@@ -161,6 +196,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
         present(vc, animated: true)
     }
+    
     
     ///animationReturnBack : To animate the return of the SquareView to his initial position
     private func animationReturnBack() {
@@ -276,11 +312,12 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // MARK: Tap button on chooseView
     // resetStateOfSelectedGridCollection : Func to reset each Choose Button to False Value
-    func resetStateOfSelectedGridCollection(_ sender: [UIButton]) {
+    @IBAction func resetStateOfSelectedGridCollection(_ sender: [UIButton]) {
         for button in selectedGridCollection {
             button.isSelected = false
         }
     }
+
     
     
     @IBAction func didTapChooseButtonRectangleUp(_ sender: Any) {
@@ -337,5 +374,3 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
 }
-
-

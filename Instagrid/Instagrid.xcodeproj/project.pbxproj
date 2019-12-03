@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B15D4685237CDC7A002F59B2 /* PictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15D4684237CDC7A002F59B2 /* PictureView.swift */; };
-		B15D495D238EC3AA00DADBA5 /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15D495C238EC3AA00DADBA5 /* Orientation.swift */; };
+		B15D495D238EC3AA00DADBA5 /* GridModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15D495C238EC3AA00DADBA5 /* GridModel.swift */; };
 		B18D154422C6456200C7012F /* PhotoButtonTapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D154322C6456200C7012F /* PhotoButtonTapped.swift */; };
 		B1B44920238C2B5100DE64B5 /* SelectedGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B4491F238C2B5100DE64B5 /* SelectedGrid.swift */; };
 		B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */; };
@@ -22,7 +22,7 @@
 
 /* Begin PBXFileReference section */
 		B15D4684237CDC7A002F59B2 /* PictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureView.swift; sourceTree = "<group>"; };
-		B15D495C238EC3AA00DADBA5 /* Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
+		B15D495C238EC3AA00DADBA5 /* GridModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridModel.swift; sourceTree = "<group>"; };
 		B18D154322C6456200C7012F /* PhotoButtonTapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoButtonTapped.swift; sourceTree = "<group>"; };
 		B1B4491F238C2B5100DE64B5 /* SelectedGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedGrid.swift; sourceTree = "<group>"; };
 		B1EEC52B22C2D8D100D0C6CD /* Instagrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,7 +81,7 @@
 			children = (
 				B18D154322C6456200C7012F /* PhotoButtonTapped.swift */,
 				B1B4491F238C2B5100DE64B5 /* SelectedGrid.swift */,
-				B15D495C238EC3AA00DADBA5 /* Orientation.swift */,
+				B15D495C238EC3AA00DADBA5 /* GridModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,7 +191,7 @@
 				B18D154422C6456200C7012F /* PhotoButtonTapped.swift in Sources */,
 				B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */,
 				B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */,
-				B15D495D238EC3AA00DADBA5 /* Orientation.swift in Sources */,
+				B15D495D238EC3AA00DADBA5 /* GridModel.swift in Sources */,
 				B15D4685237CDC7A002F59B2 /* PictureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
