@@ -55,7 +55,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
         shareView.addGestureRecognizer(gestureRecognizer)
         /// configure orientation Arrow image and Swipe Label
-        configureOrientation()
+        configureOrientation(configure: .whenViewDidLoad)
         /// configure Choose button
         configureChooseButton()
         ///configure Square Button
@@ -67,13 +67,12 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     // MARK: willTransition:
     /// willTransition :detect device orientation for gesture direction
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        configureOrientation()
+        configureOrientation(configure: .whenViewWillTransition)
     }
     
     
-    func configureOrientation() {
-        let (swipeLabelText, arrowImage) = model.makeSwipeLabelTextAndArrow()
-        print("L'image est : \(arrowImage)")
+    func configureOrientation(configure: GridModel.ConfigureOrientation) {
+        let (swipeLabelText, arrowImage) = model.makeSwipeLabelTextAndArrowImage(with: configure)
         arrowForSwipe.image = arrowImage
         swipeLabel.text = swipeLabelText
     }
@@ -103,22 +102,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    /*
-     /// transformShareView : Action When user didSwipe began/changed on shareView
-     private func transformShareView(gesture : UIPanGestureRecognizer) {
-     let translation = gesture.translation(in: shareView)
-     orientation.checkOrientationMode()
-     if !orientation.isPortrait {
-     shareView.transform = CGAffineTransform(translationX: translation.x, y: 0)
-     squareUIView.transform = CGAffineTransform(translationX: translation.x, y: 0)
-     slideLenghtIsSuffisant(translation: translation.x)
-     } else {
-     shareView.transform = CGAffineTransform(translationX: 0, y: translation.y)
-     squareUIView.transform = CGAffineTransform(translationX: 0, y: translation.y)
-     slideLenghtIsSuffisant(translation: translation.y)
-     }
-     }
-     */
     
     /// transformShareViewAndSquareView : Give instruction to do When user didSwipe began/changed on shareView
     private func transformShareViewAndSquareView(gesture : UIPanGestureRecognizer) {
@@ -133,7 +116,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
         ///je dois vérifier si portrait ou paysage
-        let isPortrait = model.isOrientationPortrait()
+        let isPortrait = model.isOrientationPortraitWhenWillTransition()
         /// je dois vérifier si le swipe est suffisant
         let translation = gesture.translation(in: shareView)
         let isSwipeLenghtIsOk = model.isSlideLenghtIsSuffisant(translation: translation)
@@ -161,27 +144,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             animationReturnBack()
         }
     }
-    
-    /*
-     ///animationBeforeSharing : To animate SquareView outside the screen before sharing
-     private func animationBeforeSharing(sizeScreenWidth: CGFloat, sizeScreenHeight: CGFloat) {
-     UIView.animate(withDuration: 0.3, animations: {
-     if !self.orientation.isPortrait {
-     self.squareUIView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
-     self.shareView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
-     } else {
-     self.squareUIView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
-     self.shareView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
-     }
-     })
-     { (success) in
-     if success {
-     self.sharePhoto()
-     self.animationReturnBack()
-     }
-     }
-     }
-     */
+
     
     /// sharePhoto() : to share photo with UIActivity
     private func sharePhoto() {

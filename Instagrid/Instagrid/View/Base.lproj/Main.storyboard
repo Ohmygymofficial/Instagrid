@@ -33,7 +33,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-15" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nZu-Ow-Rip" userLabel="ShareView">
                                 <rect key="frame" x="16" y="130" width="382" height="70"/>
                                 <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" verticalHuggingPriority="244" insetsLayoutMarginsFromSafeArea="NO" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="tiA-aZ-kKL" userLabel="arrowForSwipe">
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" verticalHuggingPriority="244" insetsLayoutMarginsFromSafeArea="NO" image="arrow-up" translatesAutoresizingMaskIntoConstraints="NO" id="tiA-aZ-kKL" userLabel="arrowForSwipe">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="77"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe Right to Share" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="E8U-nq-jsH" userLabel="SwipeLabel">
@@ -341,7 +341,6 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="SwipeLabel" destination="E8U-nq-jsH" id="cfF-ZB-dgB"/>
                         <outlet property="arrowForSwipe" destination="tiA-aZ-kKL" id="O8k-fH-yfm"/>
                         <outlet property="chooseButtonRectangleDown" destination="Kt3-XG-CJC" id="XXh-eF-Ugo"/>
                         <outlet property="chooseButtonRectangleUp" destination="mbE-SN-Os2" id="2zI-Sp-iUT"/>
@@ -369,12 +368,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow Up" width="13.333333015441895" height="9.6666669845581055"/>
         <image name="Instagrid" width="124" height="39"/>
         <image name="Layout 1" width="80" height="80"/>
         <image name="Layout 2" width="80" height="80"/>
         <image name="Layout 3" width="80" height="80"/>
         <image name="Plus" width="40" height="40"/>
         <image name="Rectangle 3" width="150" height="150"/>
+        <image name="arrow-up" width="13.333333015441895" height="9.6666669845581055"/>
     </resources>
 </document>

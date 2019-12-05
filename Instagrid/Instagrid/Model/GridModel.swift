@@ -10,47 +10,43 @@ import UIKit
 
 class GridModel {
     
+    enum ConfigureOrientation {
+        case whenViewDidLoad, whenViewWillTransition
+    }
+    
     /// makeSwipeLabelTextAndArrowImage : To return good arrow image and good Swipe Text value
-    func makeSwipeLabelTextAndArrow() -> (String, UIImage?) {
-        if !isOrientationPortrait() {
-            let image = UIImage(named: "Arrow up")
-            if image != nil {
-                return ("Swipe up to share", image)
-            }
+    func makeSwipeLabelTextAndArrowImage(with configureOrientation: ConfigureOrientation) -> (String, UIImage?) {
+        let isPortrait = (configureOrientation == .whenViewDidLoad) ? isOrientationPortraitWhenViewDidLoad() : isOrientationPortraitWhenWillTransition()
+        if isPortrait {
+            let arrowImage = UIImage(named: "arrow-up")
+            let indicationLabelText = "Swipe up to share"
+            return (indicationLabelText, arrowImage)
         } else {
-            if let image = UIImage(named: "Arrow left") {
-                return ("Swipe left to share", image)
-            }
+            let arrowImage = UIImage(named: "arrow-left")
+            let indicationLabelText = "Swipe left to share"
+            return (indicationLabelText, arrowImage)
         }
-        return ("Swipe up to share", UIImage(named: "Arrow up"))
     }
     
-    /*
-     /// makeSwipeLabelTextAndArrowImage : To return good arrow image and good Swipe Text value
-     func makeSwipeLabelTextAndArrow() -> (String, UIImage?) {
-     /// voir avec Lilian : Ici, en portrait, je suis obligé de mettre ! sinon  ca passe dans arrow left (BOOL return est donc faux)
-     if !isOrientationPortrait() {
-     return ("Swipe up to share", UIImage(named: "Arrow up"))
-     ///voir avec LILIAN : Aussi : l'image retournée est NIL
-     } else {
-     return ("Swipe left to share", UIImage(named: "Arrow left"))
-     }
-     }
-     */
-    
-    
-    /// isOrientationPortrait() : Return BOOL depend of the orientation
-    func isOrientationPortrait() -> Bool {
-        return UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .portraitUpsideDown
+    /// isOrientationPortraitWhenViewDidLoad() : Return BOOL depend of the orientation
+    func isOrientationPortraitWhenViewDidLoad() -> Bool {
+        return UIApplication.shared.statusBarOrientation.isPortrait
     }
+    
+    /// isOrientationPortraitWhenWillTransition() : Return BOOL depend of the orientation
+    func isOrientationPortraitWhenWillTransition() -> Bool {
+        return UIDevice.current.orientation.isPortrait
+    }
+    
     
     
     /// giveTransformationSwipeValue : Return the good translation on X or Y to the user swipe action
-    func giveTransformationSwipeValue(translation: CGPoint) -> (CGAffineTransform) {
-        if isOrientationPortrait() {
-            return ( CGAffineTransform(translationX: 0, y: translation.y))
+    func giveTransformationSwipeValue(translation: CGPoint) -> CGAffineTransform {
+        let isPortrait = isOrientationPortraitWhenWillTransition()
+        if isPortrait {
+            return CGAffineTransform(translationX: 0, y: translation.y)
         } else {
-            return ( CGAffineTransform(translationX: translation.x, y: 0))
+            return CGAffineTransform(translationX: translation.x, y: 0)
         }
     }
     
@@ -63,8 +59,9 @@ class GridModel {
     
     /// slideLenghtIsSuffisant private func to check if the slideLenght is suffisant
     func isSlideLenghtIsSuffisant(translation: CGPoint) -> Bool {
-        let translationToApply : CGFloat
-        if isOrientationPortrait() {
+        let translationToApply: CGFloat
+        let isPortrait = isOrientationPortraitWhenWillTransition()
+        if isPortrait {
             translationToApply = translation.y
         } else {
             translationToApply = translation.x
