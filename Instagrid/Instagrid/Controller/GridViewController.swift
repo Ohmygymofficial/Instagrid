@@ -35,9 +35,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// ChooseVIew COLLECTION
     @IBOutlet private var selectedGridCollection: [UIButton]!
     
-    
-    
-    
+ 
     
     /// declare whereIsTapped : identify the good square to import a photo, default 1
     var whereIsTapped : PhotoButtonTapped = .topLeft
@@ -59,7 +57,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         /// configure Choose button
         configureChooseButton()
         ///configure Square Button
-        chooseButtonSquare.isSelected = true
+        chooseButtonSquare.isSelected = model.isSelected
         resetStateOfSquareButton()
     }
     
@@ -116,23 +114,16 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
     private func askingShareDone(gesture : UIPanGestureRecognizer) {
         ///je dois vérifier si portrait ou paysage
-        let isPortrait = model.isOrientationPortraitWhenWillTransition()
         /// je dois vérifier si le swipe est suffisant
         let translation = gesture.translation(in: shareView)
-        let isSwipeLenghtIsOk = model.isSlideLenghtIsSuffisant(translation: translation)
-        /// je dois vérifier la taille de l'ecran
-        let (sizeScreenWidth, sizeScreenHeight) = model.giveTheSizeOfTheScreen()
+        let isSwipeLengthIsOk = model.isSlideLengthIsSuffisant(translation: translation)
         /// je dois lancer une animation puis share la photo
         ///ou je dois revenir a letat normal
-        if isSwipeLenghtIsOk {
-            UIView.animate(withDuration: 0.3, animations: {
-                if !isPortrait {
-                    self.squareUIView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
-                    self.shareView.transform = CGAffineTransform(translationX: -sizeScreenWidth, y:  0)
-                } else {
-                    self.squareUIView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
-                    self.shareView.transform = CGAffineTransform(translationX: 0, y:  -sizeScreenHeight)
-                }
+        if isSwipeLengthIsOk {
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
+                guard let me = self else { return }
+                me.squareUIView.transform = me.model.swipeTransform
+                me.shareView.transform = me.model.swipeTransform
             })
             { (success) in
                 if success {
@@ -272,40 +263,34 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
-    
     // MARK: Tap button on chooseView
-    // resetStateOfSelectedGridCollection : Func to reset each Choose Button to False Value
-    @IBAction func resetStateOfSelectedGridCollection(_ sender: [UIButton]) {
-        for button in selectedGridCollection {
-            button.isSelected = false
-        }
+    func resetStateOfSelectedGridCollection() {
+        chooseButtonRectangleDown.isSelected = model.unSelected
+        chooseButtonRectangleUp.isSelected = model.unSelected
+        chooseButtonSquare.isSelected = model.unSelected
     }
 
-    
     
     @IBAction func didTapChooseButtonRectangleUp(_ sender: Any) {
         userSelection.gridStyle = .rectangleUp
         isChangingDisposition(wichButtonIsHidden: squareButtonTopLeft, userSelection : userSelection)
-        resetStateOfSelectedGridCollection(selectedGridCollection)
-        //resetStateOfChooseButton()
-        chooseButtonRectangleUp.isSelected = true
+        resetStateOfSelectedGridCollection()
+        chooseButtonRectangleUp.isSelected = model.isSelected
     }
     
     @IBAction func didTapChooseButtonRectangleDown(_ sender: Any) {
         userSelection.gridStyle = .rectangleDown
         isChangingDisposition(wichButtonIsHidden: squareButtonBottomLeft, userSelection : userSelection)
-        resetStateOfSelectedGridCollection(selectedGridCollection)
-        // resetStateOfChooseButton()
-        chooseButtonRectangleDown.isSelected = true
+        resetStateOfSelectedGridCollection()
+        chooseButtonRectangleDown.isSelected = model.isSelected
     }
     
     
     @IBAction func didTapChooseButtonSquare(_ sender: Any) {
         userSelection.gridStyle = .square
         isChangingDisposition(wichButtonIsHidden: squareButtonTopRight, userSelection : userSelection)
-        resetStateOfSelectedGridCollection(selectedGridCollection)
-        // resetStateOfChooseButton()
-        chooseButtonSquare.isSelected = true
+        resetStateOfSelectedGridCollection()
+        chooseButtonSquare.isSelected = model.isSelected
     }
     
     
