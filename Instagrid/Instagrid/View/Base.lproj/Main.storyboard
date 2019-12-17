@@ -87,14 +87,14 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
-                                                            <action selector="didTapOnTopLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cth-Vj-oqb"/>
+                                                            <action selector="didTapOnSquareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9EV-dy-0Pu"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpN-uI-8Nb" userLabel="SquareButtonTopRight">
                                                         <rect key="frame" x="140" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
-                                                            <action selector="didTapOnTopRightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1sf-HV-6RF"/>
+                                                            <action selector="didTapOnSquareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wNy-VZ-3Qp"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -107,14 +107,14 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
-                                                            <action selector="didTapOnBottomLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7RB-Xi-occ"/>
+                                                            <action selector="didTapOnSquareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CwS-fB-kof"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="4" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
                                                         <rect key="frame" x="140" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
-                                                            <action selector="didTapOnBottomRightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iqz-kb-zsC"/>
+                                                            <action selector="didTapOnSquareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F21-kV-Xmg"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -149,7 +149,7 @@
                                         </constraints>
                                         <state key="normal" backgroundImage="Layout 1"/>
                                         <connections>
-                                            <action selector="didTapChooseButtonRectangleUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vD2-on-WFr"/>
+                                            <action selector="didTapOnAnyChooseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qs7-Ym-rBg"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kt3-XG-CJC" userLabel="chooseButtonRectangleDown">
@@ -159,7 +159,7 @@
                                         </constraints>
                                         <state key="normal" backgroundImage="Layout 2"/>
                                         <connections>
-                                            <action selector="didTapChooseButtonRectangleDown:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F8B-Rc-zee"/>
+                                            <action selector="didTapOnAnyChooseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UDE-dh-4iV"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3r-RC-nFF" userLabel="chooseButtonSquare">
@@ -169,7 +169,7 @@
                                         </constraints>
                                         <state key="normal" backgroundImage="Layout 3"/>
                                         <connections>
-                                            <action selector="didTapChooseButtonSquare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VEU-1r-Ief"/>
+                                            <action selector="didTapOnAnyChooseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GuU-23-K6w"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -338,25 +338,24 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="SquareUIView" destination="wX5-Tt-vxz" id="TuX-NY-7W4"/>
                         <outlet property="arrowForSwipe" destination="tiA-aZ-kKL" id="O8k-fH-yfm"/>
-                        <outlet property="chooseButtonRectangleDown" destination="Kt3-XG-CJC" id="XXh-eF-Ugo"/>
-                        <outlet property="chooseButtonRectangleUp" destination="mbE-SN-Os2" id="2zI-Sp-iUT"/>
-                        <outlet property="chooseButtonSquare" destination="m3r-RC-nFF" id="fTX-ZU-J4a"/>
-                        <outlet property="chooseView" destination="5O0-Zq-fP1" id="v3P-WZ-LGf"/>
-                        <outlet property="instagrid" destination="dBg-VU-vYa" id="k0Z-W3-5vO"/>
+                        <outlet property="chooseButtonRectangleDown" destination="Kt3-XG-CJC" id="A7I-5C-9nu"/>
+                        <outlet property="chooseButtonRectangleUp" destination="mbE-SN-Os2" id="aGM-eg-DmN"/>
+                        <outlet property="chooseButtonSquare" destination="m3r-RC-nFF" id="CfE-7s-aGe"/>
                         <outlet property="shareView" destination="nZu-Ow-Rip" id="pgO-Qf-1k7"/>
-                        <outlet property="squareBottomView" destination="Sas-8m-dzZ" id="Rf9-vl-sfX"/>
                         <outlet property="squareButtonBottomLeft" destination="rJy-Ne-hFu" id="WOw-ws-bxJ"/>
                         <outlet property="squareButtonBottomRight" destination="rPt-fO-ZY3" id="jXC-WW-Adh"/>
                         <outlet property="squareButtonTopLeft" destination="azh-ks-P7q" id="BYg-z0-kQr"/>
                         <outlet property="squareButtonTopRight" destination="hpN-uI-8Nb" id="HZH-lh-Irs"/>
-                        <outlet property="squareUIView" destination="wX5-Tt-vxz" id="ilp-bi-Kgf"/>
-                        <outlet property="squareUpView" destination="Hat-LH-zTH" id="KI4-w9-TyG"/>
-                        <outlet property="squareView" destination="lhv-yV-HmC" id="gL7-hp-LQJ"/>
                         <outlet property="swipeLabel" destination="E8U-nq-jsH" id="VQd-51-pV5"/>
-                        <outletCollection property="selectedGridCollection" destination="mbE-SN-Os2" collectionClass="NSMutableArray" id="TaZ-8z-quZ"/>
-                        <outletCollection property="selectedGridCollection" destination="Kt3-XG-CJC" collectionClass="NSMutableArray" id="l9u-E7-5ze"/>
-                        <outletCollection property="selectedGridCollection" destination="m3r-RC-nFF" collectionClass="NSMutableArray" id="mtn-aa-21b"/>
+                        <outletCollection property="gridCollection" destination="mbE-SN-Os2" collectionClass="NSMutableArray" id="aKn-cE-Zb8"/>
+                        <outletCollection property="gridCollection" destination="Kt3-XG-CJC" collectionClass="NSMutableArray" id="fQc-19-mpd"/>
+                        <outletCollection property="gridCollection" destination="m3r-RC-nFF" collectionClass="NSMutableArray" id="vpN-0S-UQf"/>
+                        <outletCollection property="squareCollection" destination="azh-ks-P7q" collectionClass="NSMutableArray" id="Ob4-oI-ZBO"/>
+                        <outletCollection property="squareCollection" destination="hpN-uI-8Nb" collectionClass="NSMutableArray" id="Vu3-Et-ztP"/>
+                        <outletCollection property="squareCollection" destination="rJy-Ne-hFu" collectionClass="NSMutableArray" id="ezP-Fr-NBW"/>
+                        <outletCollection property="squareCollection" destination="rPt-fO-ZY3" collectionClass="NSMutableArray" id="rL8-WG-etO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
