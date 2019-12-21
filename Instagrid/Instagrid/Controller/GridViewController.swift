@@ -11,7 +11,6 @@ import UIKit
 class GridViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: IBOutlet Link
-    /// All objects of the view
     /// ShareView
     @IBOutlet weak private var shareView: UIStackView!
     @IBOutlet weak private var swipeLabel: UILabel!
@@ -165,7 +164,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
-    
     // MARK: User want to import an image
     /// showImagePickerController : Used to choose option
     private func showImagePickerController() {
@@ -180,6 +178,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             currentButton.setImage(originalImage, for: .normal)
+            currentButton.imageView?.contentMode = .scaleAspectFill
             currentButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
         dismiss(animated: true, completion: nil)
