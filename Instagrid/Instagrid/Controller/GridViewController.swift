@@ -36,6 +36,8 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var swipeLenghtIsSuffisant = false
     var disparitionOfX: CGFloat = 0
     var disparitionOfY: CGFloat = 0
+    var model = Model()
+    
     
     
     // MARK: viewDidLoad
@@ -48,7 +50,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         didTapOnAnyChooseButton(_ : chooseButtonSquare)
     }
     
-    
+    // MARK: viewWillTransition
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         switch UIDevice.current.orientation {
         case .landscapeLeft, .landscapeRight:
@@ -59,20 +61,15 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         configureOrientation()
     }
     
-    
+    // MARK: configureOrientation : Give the good Label and Arrow depend of the orientation mode
     private func configureOrientation() {
-        if isPortrait {
-            arrowForSwipe.image = UIImage(named: "arrow-up")
-            swipeLabel.text = "Swipe up to share"
-        } else {
-            arrowForSwipe.image = UIImage(named: "arrow-left")
-            swipeLabel.text = "Swipe left to share"
-        }
+        let (goodArrowIs, goodSwipeIs) = model.giveGoodArrowAndLabel(isPortrait: isPortrait)
+        arrowForSwipe.image = UIImage(named: goodArrowIs)
+        swipeLabel.text = goodSwipeIs
     }
     
     
-    // MARK: Swipe on share view
-    /// userDidSwipe : Case When user didSwipe on shareView
+    // MARK: userDidSwipe : Launch different func depend of the Swipe statut
     @objc func userDidSwipe(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began, .changed:
@@ -233,6 +230,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     private func animationSquareAndShareView(translationForX: CGFloat, translationForY: CGFloat) {
+        // lilian desire mettre ca dans le model = impossible car le CFFloat ou le CGAffine depend du UIKit
         shareView.transform = CGAffineTransform(translationX: translationForX, y: translationForY)
         squareUIView.transform = CGAffineTransform(translationX: translationForX, y: translationForY)
     }

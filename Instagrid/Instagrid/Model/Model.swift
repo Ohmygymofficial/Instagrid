@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+class Model {
+    
+    func giveGoodArrowAndLabel(isPortrait: Bool) -> (String, String) {
+        if isPortrait {
+            return ("arrow-up","Swipe up to share")
+        } else {
+            return ("arrow-left","Swipe left to share")
+        }
+    }
+}
