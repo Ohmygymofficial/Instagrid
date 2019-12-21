@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B15D4685237CDC7A002F59B2 /* PictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15D4684237CDC7A002F59B2 /* PictureView.swift */; };
+		B16B9DAD23A953B9000DACF6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B9DAC23A953B9000DACF6 /* Model.swift */; };
+		B16B9DB023A95465000DACF6 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B9DAF23A95465000DACF6 /* UIView+Animation.swift */; };
 		B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */; };
 		B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */; };
 		B1EEC53422C2D8D100D0C6CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1EEC53222C2D8D100D0C6CD /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		B15D4684237CDC7A002F59B2 /* PictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureView.swift; sourceTree = "<group>"; };
+		B16B9DAC23A953B9000DACF6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B16B9DAF23A95465000DACF6 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		B1EEC52B22C2D8D100D0C6CD /* Instagrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
@@ -41,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B16B9DAE23A95451000DACF6 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B16B9DAF23A95465000DACF6 /* UIView+Animation.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		B18D154022C644E900C7012F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +85,7 @@
 		B18D154522C6456F00C7012F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B16B9DAC23A953B9000DACF6 /* Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -96,6 +109,7 @@
 		B1EEC52D22C2D8D100D0C6CD /* Instagrid */ = {
 			isa = PBXGroup;
 			children = (
+				B16B9DAE23A95451000DACF6 /* Helper */,
 				B1EEC53A22C2D8D300D0C6CD /* Info.plist */,
 				B18D154522C6456F00C7012F /* Model */,
 				B18D154222C6452900C7012F /* Controller */,
@@ -180,7 +194,9 @@
 			files = (
 				B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */,
 				B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */,
+				B16B9DB023A95465000DACF6 /* UIView+Animation.swift in Sources */,
 				B15D4685237CDC7A002F59B2 /* PictureView.swift in Sources */,
+				B16B9DAD23A953B9000DACF6 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

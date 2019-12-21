@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Because we need to take a photo ;)</string>
+	<string>Besoin de votre autorisation pour utiliser votre appareil photo</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -44,7 +44,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Because we need it to make an Instagrid :)</string>
+	<string>Besoin de votre autorisation pour enregistrer dans la pellicule</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Besoin de votre autorisation pour enregistrer dans la pellicule</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Delm-Medium.otf</string>

@@ -10,7 +10,6 @@ import UIKit
 
 class GridViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
     // MARK: IBOutlet Link
     /// All objects of the view
     /// ShareView
@@ -35,12 +34,16 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var currentButton = UIButton()
     var myArray: [UIButton] = []
     var isPortrait = true
+    var swipeLenghtIsSuffisant = false
+    var neededImages = false
+    var disparitionOfX: CGFloat = 0
+    var disparitionOfY: CGFloat = 0
     
     
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Setting a let gestureRecognizer for detect user's gesture
+        // Setting a let gestureRecognizer to detect user's gesture
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidSwipe(sender:)))
         shareView.addGestureRecognizer(gestureRecognizer)
         configureOrientation()
@@ -50,9 +53,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         switch UIDevice.current.orientation {
-        case .landscapeLeft:
-            isPortrait = false
-        case .landscapeRight:
+        case .landscapeLeft, .landscapeRight:
             isPortrait = false
         default:
             isPortrait = true
@@ -79,56 +80,45 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         case .began, .changed:
             transformShareViewAndSquareView(gesture: sender)
         case .ended, .cancelled:
-            askingShareDone(gesture: sender)
+            releaseSwipe()
         default:
             break
         }
     }
     
-    
     /// transformShareViewAndSquareView : Give instruction to do When user didSwipe began/changed on shareView
     private func transformShareViewAndSquareView(gesture : UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareView)
         if isPortrait {
-            shareView.transform = CGAffineTransform(translationX: 0, y: translation.y)
-            squareUIView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            animationSquareAndShareView(translationForX: 0, translationForY: translation.y)
+            checkingSlideLenght(translation: translation.y)
+            disparitionOfX = 0
+            disparitionOfY = UIScreen.main.bounds.height
         } else {
-            shareView.transform = CGAffineTransform(translationX: translation.x, y: 0)
-            squareUIView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+            animationSquareAndShareView(translationForX: translation.x, translationForY: 0)
+            checkingSlideLenght(translation: translation.x)
+            disparitionOfX = UIScreen.main.bounds.width
+            disparitionOfY = 0
         }
     }
     
     
-    /// askingShareDone : Action When user didSwipe ended/cancelled on shareView
-    private func askingShareDone(gesture : UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: shareView)
-        let translationToApply: CGFloat
-        let height = UIScreen.main.bounds.height
-        let width = UIScreen.main.bounds.width
-        var disparitionSquare = CGAffineTransform(translationX: 0, y:  0)
-        if isPortrait {
-            translationToApply = translation.y
-            disparitionSquare = CGAffineTransform(translationX: 0, y:  -height)
-        } else {
-            translationToApply = translation.x
-            disparitionSquare = CGAffineTransform(translationX: -width, y:  0)
-        }
-        if translationToApply < -50 {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.squareUIView.transform = disparitionSquare
-                self.shareView.transform = disparitionSquare
+    
+     // releaseSwipe : Action When user ended/cancelled Swipe on shareView
+    private func releaseSwipe() {
+        if swipeLenghtIsSuffisant == true {
+            UIView.animate(withDuration: 0.3, animations:  {
+                self.animationSquareAndShareView(translationForX: -self.disparitionOfX, translationForY: -self.disparitionOfY)
             })
             { (success) in
                 if success {
+                    self.checkImagesIsPresent(neededButtonImage: self.myArray)
                     self.sharePhoto()
-                    self.animationReturnBack()
                 }
             }
-            checkImagesIsPresent(neededButtonImage: myArray)
-            sharePhoto()
         } else {
-            //// alors je remet le swipe a sa place
-            animationReturnBack()
+            squareUIView.transform  = .identity
+            shareView.transform = .identity
         }
     }
     
@@ -143,34 +133,32 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         /// share with UIActivity
         let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
         present(vc, animated: true)
+        animationReturnBack()
     }
     
     
     ///animationReturnBack : To animate the return of the SquareView to his initial position
     private func animationReturnBack() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.shareView.transform = .identity
-            self.squareUIView.transform = .identity
+            // a passer dans la methode extension creee
+            self.animationSquareAndShareView(translationForX: 0, translationForY: 0)
         })
     }
     
     
     // Check if user loaded image into each square
-    func checkImagesIsPresent (neededButtonImage: [UIButton]) {
+    func checkImagesIsPresent(neededButtonImage: [UIButton]) {
         for button in neededButtonImage {
             if button.image(for: .normal)!.pngData() == UIImage(named: "Plus")!.pngData() {
-                checkBeforeShare()
+                let alert = UIAlertController(title: "PARTAGE IMPOSSIBLE", message: "Vous devez remplir chaque image avant de partager", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                animationReturnBack()
+                neededImages = false
+            } else {
+                neededImages = true
             }
         }
-    }
-    
-    
-    // Check if all the button image is complete before sharing
-    func checkBeforeShare() {
-        let alert = UIAlertController(title: "IMAGE MANQUANTE", message: "Vous devez remplir chaque image avant de partager", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        self.present(alert, animated: true)
-        animationReturnBack()
     }
     
     
@@ -217,15 +205,13 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         resetStateOfSelectedGridCollection()
         resetStateOfSquareButton()
         sender.isSelected = true
-        if sender.tag == 5 {
+        if sender == chooseButtonRectangleUp {
             myArray = [squareButtonTopRight, squareButtonBottomLeft, squareButtonBottomRight]
             self.squareButtonTopRight.setBackgroundImage(UIImage(named: "Rectangle 4"), for: .normal)
-        }
-        if sender.tag == 6 {
+        } else if sender == chooseButtonRectangleDown {
             myArray = [squareButtonTopRight, squareButtonTopLeft, squareButtonBottomRight]
             self.squareButtonBottomRight.setBackgroundImage(UIImage(named: "Rectangle 4"), for: .normal)
-        }
-        if sender.tag == 7 {
+        } else if sender == chooseButtonSquare {
             myArray = [squareButtonTopRight, squareButtonTopLeft, squareButtonBottomLeft, squareButtonBottomRight]
         }
         isChangingDisposition(arrayButtonIsVisible: myArray)
@@ -250,4 +236,20 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             button.contentHorizontalAlignment = .fill
         }
     }
+    
+    func animationSquareAndShareView(translationForX: CGFloat, translationForY: CGFloat) {
+        shareView.transform = CGAffineTransform(translationX: translationForX, y: translationForY)
+        squareUIView.transform = CGAffineTransform(translationX: translationForX, y: translationForY)
+    }
+    
+    func checkingSlideLenght(translation: CGFloat) {
+        let slideLenght: CGFloat = 50
+        if translation < -slideLenght {
+            swipeLenghtIsSuffisant = true
+        } else { swipeLenghtIsSuffisant = false }
+    }
 }
+
+
+
+

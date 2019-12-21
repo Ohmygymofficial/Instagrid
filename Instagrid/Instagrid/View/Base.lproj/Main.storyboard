@@ -75,24 +75,24 @@
                                 </variation>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wX5-Tt-vxz" userLabel="SquareUIView">
-                                <rect key="frame" x="62" y="216" width="290" height="290"/>
+                                <rect key="frame" x="57" y="216" width="300" height="300"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="lhv-yV-HmC" userLabel="Square View">
-                                        <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                         <subviews>
                                             <stackView contentMode="scaleToFill" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-LH-zTH">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="150"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="155"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azh-ks-P7q" userLabel="SquareButtonTopLeft">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                    <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azh-ks-P7q" userLabel="SquareButtonTopLeft">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="155"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnSquareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9EV-dy-0Pu"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpN-uI-8Nb" userLabel="SquareButtonTopRight">
-                                                        <rect key="frame" x="140" y="0.0" width="150" height="150"/>
-                                                        <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
+                                                    <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpN-uI-8Nb" userLabel="SquareButtonTopRight">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="155"/>
+                                                        <state key="normal" image="Plus" backgroundImage="Rectangle 4"/>
                                                         <connections>
                                                             <action selector="didTapOnSquareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wNy-VZ-3Qp"/>
                                                         </connections>
@@ -101,17 +101,17 @@
                                                 <color key="backgroundColor" red="0.062745098040000002" green="0.40000000000000002" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="center" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Sas-8m-dzZ">
-                                                <rect key="frame" x="0.0" y="140" width="290" height="150"/>
+                                                <rect key="frame" x="0.0" y="145" width="300" height="155"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJy-Ne-hFu" userLabel="SquareButtonBottomLeft">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="155"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnSquareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CwS-fB-kof"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="4" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-fO-ZY3" userLabel="SquareButtonBottomRight">
-                                                        <rect key="frame" x="140" y="0.0" width="150" height="150"/>
+                                                        <rect key="frame" x="145" y="0.0" width="155" height="155"/>
                                                         <state key="normal" image="Plus" backgroundImage="Rectangle 3"/>
                                                         <connections>
                                                             <action selector="didTapOnSquareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F21-kV-Xmg"/>
@@ -338,7 +338,6 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="SquareUIView" destination="wX5-Tt-vxz" id="TuX-NY-7W4"/>
                         <outlet property="arrowForSwipe" destination="tiA-aZ-kKL" id="O8k-fH-yfm"/>
                         <outlet property="chooseButtonRectangleDown" destination="Kt3-XG-CJC" id="A7I-5C-9nu"/>
                         <outlet property="chooseButtonRectangleUp" destination="mbE-SN-Os2" id="aGM-eg-DmN"/>
@@ -348,6 +347,7 @@
                         <outlet property="squareButtonBottomRight" destination="rPt-fO-ZY3" id="jXC-WW-Adh"/>
                         <outlet property="squareButtonTopLeft" destination="azh-ks-P7q" id="BYg-z0-kQr"/>
                         <outlet property="squareButtonTopRight" destination="hpN-uI-8Nb" id="HZH-lh-Irs"/>
+                        <outlet property="squareUIView" destination="wX5-Tt-vxz" id="riy-Gp-dn5"/>
                         <outlet property="swipeLabel" destination="E8U-nq-jsH" id="VQd-51-pV5"/>
                         <outletCollection property="gridCollection" destination="mbE-SN-Os2" collectionClass="NSMutableArray" id="aKn-cE-Zb8"/>
                         <outletCollection property="gridCollection" destination="Kt3-XG-CJC" collectionClass="NSMutableArray" id="fQc-19-mpd"/>
@@ -370,6 +370,7 @@
         <image name="Layout 3" width="80" height="80"/>
         <image name="Plus" width="40" height="40"/>
         <image name="Rectangle 3" width="150" height="150"/>
+        <image name="Rectangle 4" width="300" height="150"/>
         <image name="arrow-up" width="13.333333015441895" height="9.6666669845581055"/>
     </resources>
 </document>
