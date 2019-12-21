@@ -60,7 +60,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
-    func configureOrientation() {
+    private func configureOrientation() {
         if isPortrait {
             arrowForSwipe.image = UIImage(named: "arrow-up")
             swipeLabel.text = "Swipe up to share"
@@ -145,7 +145,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     
     // Check if user loaded image into each square
-    func checkImagesIsPresent(neededButtonImage: [UIButton]) {
+    private func checkImagesIsPresent(neededButtonImage: [UIButton]) {
         for button in neededButtonImage {
             if button.image(for: .normal)!.pngData() == UIImage(named: "Plus")!.pngData() {
                 let alert = UIAlertController(title: "PARTAGE IMPOSSIBLE", message: "Vous devez remplir chaque image avant de partager", preferredStyle: .alert)
@@ -175,7 +175,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     //
     /// imagePickerController : To import image in the good Square
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             currentButton.setImage(originalImage, for: .normal)
             currentButton.imageView?.contentMode = .scaleAspectFill
@@ -213,7 +213,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
-    func resetStateOfSquareButton() {
+    private func resetStateOfSquareButton() {
         UIView.animate(withDuration: 0.3) {
             for button in self.squareCollection {
                 button.isHidden = true
@@ -222,7 +222,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    func resetStateOfSelectedGridCollection() {
+    private func resetStateOfSelectedGridCollection() {
         let image = UIImage(named: "Selected")
         for button in gridCollection {
             button.isSelected = false
@@ -232,19 +232,15 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    func animationSquareAndShareView(translationForX: CGFloat, translationForY: CGFloat) {
+    private func animationSquareAndShareView(translationForX: CGFloat, translationForY: CGFloat) {
         shareView.transform = CGAffineTransform(translationX: translationForX, y: translationForY)
         squareUIView.transform = CGAffineTransform(translationX: translationForX, y: translationForY)
     }
     
-    func checkingSlideLenght(translation: CGFloat) {
+    private func checkingSlideLenght(translation: CGFloat) {
         let slideLenght: CGFloat = 50
         if translation < -slideLenght {
             swipeLenghtIsSuffisant = true
         } else { swipeLenghtIsSuffisant = false }
     }
 }
-
-
-
-
