@@ -35,7 +35,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var myArray: [UIButton] = []
     var isPortrait = true
     var swipeLenghtIsSuffisant = false
-    var neededImages = false
     var disparitionOfX: CGFloat = 0
     var disparitionOfY: CGFloat = 0
     
@@ -154,9 +153,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
                 animationReturnBack()
-                neededImages = false
-            } else {
-                neededImages = true
             }
         }
     }
