@@ -16,7 +16,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak private var swipeLabel: UILabel!
     @IBOutlet weak private var arrowForSwipe: UIImageView!
     /// SquareView
-    @IBOutlet weak var squareUIView: UIView!
+    @IBOutlet weak private var squareUIView: UIView!
     @IBOutlet weak private var squareButtonTopLeft: UIButton!
     @IBOutlet weak private var squareButtonTopRight: UIButton!
     @IBOutlet weak private var squareButtonBottomLeft: UIButton!
@@ -96,7 +96,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             disparitionOfY = 0
         }
     }
-    
     
     
      // releaseSwipe : Action When user ended/cancelled Swipe on shareView
