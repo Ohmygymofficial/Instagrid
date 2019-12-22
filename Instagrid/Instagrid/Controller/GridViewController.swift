@@ -172,7 +172,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     //
     /// imagePickerController : To import image in the good Square
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             currentButton.setImage(originalImage, for: .normal)
             currentButton.imageView?.contentMode = .scaleAspectFill
