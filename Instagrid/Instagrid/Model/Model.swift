@@ -7,10 +7,8 @@
 //
 
 import Foundation
-//import UIKit
 
 class Model {
-    
     var swipeLenghtIsSuffisant = false
     
     func giveGoodArrowAndLabel(isPortrait: Bool) -> (String, String) {
@@ -23,9 +21,5 @@ class Model {
     
     func alertMessageMissingImage() -> (String, String) {
         return ("PARTAGE IMPOSSIBLE", "Vous devez remplir chaque image avant de partager")
-    }
-    
-    func test() {
-        
     }
 }
