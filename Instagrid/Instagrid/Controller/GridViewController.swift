@@ -8,8 +8,7 @@
 
 import UIKit
 
-class GridViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+class GridViewController: UIViewController {
     // MARK: IBOutlet Link
     /// ShareView
     @IBOutlet weak private var shareView: UIStackView!
@@ -29,7 +28,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak private var chooseButtonSquare: UIButton!
     /// ChooseVIew COLLECTION
     @IBOutlet private var gridCollection: [UIButton]!
-    
+    ///var declaration
     var currentButton = UIButton()
     var myArray: [UIButton] = []
     var isPortrait = true
@@ -38,9 +37,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var disparitionOfY: CGFloat = 0
     var model = Model()
     
-    
-    
-    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setting a let gestureRecognizer to detect user's gesture
@@ -50,7 +46,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         didTapOnAnyChooseButton(_ : chooseButtonSquare)
     }
     
-    // MARK: viewWillTransition
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         switch UIDevice.current.orientation {
         case .landscapeLeft, .landscapeRight:
@@ -61,15 +56,13 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         configureOrientation()
     }
     
-    // MARK: configureOrientation : Give the good Label and Arrow depend of the orientation mode
+    // ConfigureOrientation : Take back from model : Good Label and Arrow depend of the orientation mode
     private func configureOrientation() {
         let (goodArrowIs, goodSwipeIs) = model.giveGoodArrowAndLabel(isPortrait: isPortrait)
         arrowForSwipe.image = UIImage(named: goodArrowIs)
         swipeLabel.text = goodSwipeIs
     }
     
-    
-    // MARK: userDidSwipe : Launch different func depend of the Swipe statut
     @objc func userDidSwipe(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began, .changed:
@@ -81,32 +74,29 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    /// transformShareViewAndSquareView : Give instruction to do When user didSwipe began/changed on shareView
-    private func transformShareViewAndSquareView(gesture : UIPanGestureRecognizer) {
+    private func transformShareViewAndSquareView(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareView)
         if isPortrait {
-            animationSquareAndShareView(translationForX: 0, translationForY: translation.y)
+            animationSquareAndShareView(xTranslation: 0, yTranslation: translation.y)
             checkingSlideLenght(translation: translation.y)
             disparitionOfX = 0
             disparitionOfY = UIScreen.main.bounds.height
         } else {
-            animationSquareAndShareView(translationForX: translation.x, translationForY: 0)
+            animationSquareAndShareView(xTranslation: translation.x, yTranslation: 0)
             checkingSlideLenght(translation: translation.x)
             disparitionOfX = UIScreen.main.bounds.width
             disparitionOfY = 0
         }
     }
     
-    
-     // releaseSwipe : Action When user ended/cancelled Swipe on shareView
     private func releaseSwipe() {
         if swipeLenghtIsSuffisant == true {
-            UIView.animate(withDuration: 0.3, animations:  {
-                self.animationSquareAndShareView(translationForX: -self.disparitionOfX, translationForY: -self.disparitionOfY)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.animationSquareAndShareView(xTranslation: -self.disparitionOfX, yTranslation: -self.disparitionOfY)
             })
             { (success) in
                 if success {
-                    self.checkImagesIsPresent(neededButtonImage: self.myArray)
+                    self.checkIfImagesArePresent(neededButtonImage: self.myArray)
                     self.sharePhoto()
                 }
             }
@@ -115,36 +105,28 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             shareView.transform = .identity
         }
     }
-    
-    
-    /// sharePhoto() : to share photo with UIActivity
+
     private func sharePhoto() {
-        /// convert UIView into Image
         let renderer = UIGraphicsImageRenderer(size: squareUIView.bounds.size)
-        let imageView = renderer.image { ctx in
+        let imageView = renderer.image { _ in
             squareUIView.drawHierarchy(in: squareUIView.bounds, afterScreenUpdates: true)
         }
-        /// share with UIActivity
-        let vc = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
-        present(vc, animated: true)
+        let viewC = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
+        present(viewC, animated: true)
         animationReturnBack()
     }
-    
-    
-    ///animationReturnBack : To animate the return of the SquareView to his initial position
+
     private func animationReturnBack() {
         UIView.animate(withDuration: 0.3, animations: {
-            // a passer dans la methode extension creee
-            self.animationSquareAndShareView(translationForX: 0, translationForY: 0)
+            self.animationSquareAndShareView(xTranslation: 0, yTranslation: 0)
         })
     }
-    
-    
-    // Check if user loaded image into each square
-    private func checkImagesIsPresent(neededButtonImage: [UIButton]) {
+
+    private func checkIfImagesArePresent(neededButtonImage: [UIButton]) {
         for button in neededButtonImage {
             if button.image(for: .normal)!.pngData() == UIImage(named: "Plus")!.pngData() {
-                let alert = UIAlertController(title: "PARTAGE IMPOSSIBLE", message: "Vous devez remplir chaque image avant de partager", preferredStyle: .alert)
+                let (title, message) = model.alertMessageMissingImage()
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
                 animationReturnBack()
@@ -152,16 +134,11 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    
-    
     @IBAction func didTapOnSquareButton(_ sender: UIButton) {
         currentButton = sender
         showImagePickerController()
     }
     
-    
-    // MARK: User want to import an image
-    /// showImagePickerController : Used to choose option
     private func showImagePickerController() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -169,8 +146,7 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
-    //
-    /// imagePickerController : To import image in the good Square
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             currentButton.setImage(originalImage, for: .normal)
@@ -180,17 +156,13 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dismiss(animated: true, completion: nil)
     }
     
-    
-    
-    /// isChangingDisposition : Changing disposition in square view depend of wich one is choosen
-    private func isChangingDisposition(arrayButtonIsVisible : [UIButton]) {
+    private func isChangingDisposition(arrayButtonIsVisible: [UIButton]) {
         UIView.animate(withDuration: 0.3) {
             for button in arrayButtonIsVisible {
                 button.isHidden = false
             }
         }
     }
-    
     
     @IBAction func didTapOnAnyChooseButton(_ sender: UIButton) {
         resetStateOfSelectedGridCollection()
@@ -207,7 +179,6 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         isChangingDisposition(arrayButtonIsVisible: myArray)
     }
-    
     
     private func resetStateOfSquareButton() {
         UIView.animate(withDuration: 0.3) {
@@ -228,10 +199,10 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    private func animationSquareAndShareView(translationForX: CGFloat, translationForY: CGFloat) {
+    private func animationSquareAndShareView(xTranslation: CGFloat, yTranslation: CGFloat) {
         // lilian desire mettre ca dans le model = impossible car le CFFloat ou le CGAffine depend du UIKit
-        shareView.transform = CGAffineTransform(translationX: translationForX, y: translationForY)
-        squareUIView.transform = CGAffineTransform(translationX: translationForX, y: translationForY)
+        shareView.transform = CGAffineTransform(translationX: xTranslation, y: yTranslation)
+        squareUIView.transform = CGAffineTransform(translationX: xTranslation, y: yTranslation)
     }
     
     private func checkingSlideLenght(translation: CGFloat) {
@@ -240,4 +211,12 @@ class GridViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             swipeLenghtIsSuffisant = true
         } else { swipeLenghtIsSuffisant = false }
     }
+}
+
+
+// MARK: - UIImagePickerControllerDelegate
+extension GridViewController: UIImagePickerControllerDelegate {
+}
+// MARK: - UINavigationControllerDelegate
+extension GridViewController: UINavigationControllerDelegate{
 }

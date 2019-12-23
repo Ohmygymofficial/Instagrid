@@ -9,12 +9,14 @@
 import Foundation
 
 class Model {
-    
     func giveGoodArrowAndLabel(isPortrait: Bool) -> (String, String) {
         if isPortrait {
-            return ("arrow-up","Swipe up to share")
+            return ("arrow-up", "Swipe up to share")
         } else {
-            return ("arrow-left","Swipe left to share")
+            return ("arrow-left", "Swipe left to share")
         }
+    }
+    func alertMessageMissingImage() -> (String, String) {
+        return ("PARTAGE IMPOSSIBLE", "Vous devez remplir chaque image avant de partager")
     }
 }
