@@ -20,21 +20,17 @@ class GridViewController: UIViewController {
     @IBOutlet weak private var squareButtonTopRight: UIButton!
     @IBOutlet weak private var squareButtonBottomLeft: UIButton!
     @IBOutlet weak private var squareButtonBottomRight: UIButton!
-    /// Square COLLECTION
     @IBOutlet var squareCollection: [UIButton]!
     /// ChooseView
     @IBOutlet weak private var chooseButtonRectangleUp: UIButton!
     @IBOutlet weak private var chooseButtonRectangleDown: UIButton!
     @IBOutlet weak private var chooseButtonSquare: UIButton!
-    /// ChooseVIew COLLECTION
     @IBOutlet private var gridCollection: [UIButton]!
     ///var declaration
     var currentButton = UIButton()
     var myArray: [UIButton] = []
-    var isPortrait = true
-    var swipeLenghtIsSuffisant = false
-    var disparitionOfX: CGFloat = 0
-    var disparitionOfY: CGFloat = 0
+    var xValueDisparition: CGFloat = 0
+    var yValueDisparition: CGFloat = 0
     var model = Model()
     
     override func viewDidLoad() {
@@ -47,28 +43,32 @@ class GridViewController: UIViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        switch UIDevice.current.orientation {
-        case .landscapeLeft, .landscapeRight:
-            isPortrait = false
-        default:
-            isPortrait = true
-        }
         configureOrientation()
     }
     
     // ConfigureOrientation : Take back from model : Good Label and Arrow depend of the orientation mode
     private func configureOrientation() {
-        let (goodArrowIs, goodSwipeIs) = model.giveGoodArrowAndLabel(isPortrait: isPortrait)
+        let (goodArrowIs, goodSwipeIs) = model.giveGoodArrowAndLabel(isPortrait: isPortraitMode())
         arrowForSwipe.image = UIImage(named: goodArrowIs)
         swipeLabel.text = goodSwipeIs
     }
     
+    private func isPortraitMode() -> Bool {
+        switch UIDevice.current.orientation {
+        case .landscapeLeft, .landscapeRight:
+            return false
+        default:
+            return true
+        }
+    }
+    
+    // MARK: - UserDidSwipe
     @objc func userDidSwipe(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began, .changed:
             transformShareViewAndSquareView(gesture: sender)
         case .ended, .cancelled:
-            releaseSwipe()
+            releaseSwipe(gesture: sender)
         default:
             break
         }
@@ -76,23 +76,32 @@ class GridViewController: UIViewController {
     
     private func transformShareViewAndSquareView(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareView)
-        if isPortrait {
-            animationSquareAndShareView(xTranslation: 0, yTranslation: translation.y)
+        if isPortraitMode() {
+            gestureSize(xTranslation: 0, yTranslation: translation.y)
             checkingSlideLenght(translation: translation.y)
-            disparitionOfX = 0
-            disparitionOfY = UIScreen.main.bounds.height
+            xValueDisparition = 0
+            yValueDisparition = UIScreen.main.bounds.height
         } else {
-            animationSquareAndShareView(xTranslation: translation.x, yTranslation: 0)
+            gestureSize(xTranslation: translation.x, yTranslation: 0)
             checkingSlideLenght(translation: translation.x)
-            disparitionOfX = UIScreen.main.bounds.width
-            disparitionOfY = 0
+            xValueDisparition = UIScreen.main.bounds.width
+            yValueDisparition = 0
         }
     }
     
-    private func releaseSwipe() {
-        if swipeLenghtIsSuffisant == true {
+    private func checkingSlideLenght(translation: CGFloat) {
+        let slideLenght: CGFloat = 50
+        if translation < -slideLenght {
+            model.swipeLenghtIsSuffisant = true
+        } else {
+            model.swipeLenghtIsSuffisant = false
+        }
+    }
+    
+    private func releaseSwipe(gesture: UIPanGestureRecognizer) {
+        if model.swipeLenghtIsSuffisant {
             UIView.animate(withDuration: 0.3, animations: {
-                self.animationSquareAndShareView(xTranslation: -self.disparitionOfX, yTranslation: -self.disparitionOfY)
+                self.gestureSize(xTranslation: -self.xValueDisparition, yTranslation: -self.yValueDisparition)
             })
             { (success) in
                 if success {
@@ -118,7 +127,7 @@ class GridViewController: UIViewController {
 
     private func animationReturnBack() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.animationSquareAndShareView(xTranslation: 0, yTranslation: 0)
+            self.gestureSize(xTranslation: 0, yTranslation: 0)
         })
     }
 
@@ -134,6 +143,7 @@ class GridViewController: UIViewController {
         }
     }
     
+    // MARK: - didTapOnSquareButton
     @IBAction func didTapOnSquareButton(_ sender: UIButton) {
         currentButton = sender
         showImagePickerController()
@@ -156,14 +166,7 @@ class GridViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private func isChangingDisposition(arrayButtonIsVisible: [UIButton]) {
-        UIView.animate(withDuration: 0.3) {
-            for button in arrayButtonIsVisible {
-                button.isHidden = false
-            }
-        }
-    }
-    
+    // MARK: - didTapOnAnyChooseButton
     @IBAction func didTapOnAnyChooseButton(_ sender: UIButton) {
         resetStateOfSelectedGridCollection()
         resetStateOfSquareButton()
@@ -180,14 +183,22 @@ class GridViewController: UIViewController {
         isChangingDisposition(arrayButtonIsVisible: myArray)
     }
     
-    private func resetStateOfSquareButton() {
-        UIView.animate(withDuration: 0.3) {
-            for button in self.squareCollection {
-                button.isHidden = true
-                button.setBackgroundImage(UIImage(named: "Rectangle 3"), for: .normal)
-            }
-        }
-    }
+    private func isChangingDisposition(arrayButtonIsVisible: [UIButton]) {
+         UIView.animate(withDuration: 0.3) {
+             for button in arrayButtonIsVisible {
+                 button.isHidden = false
+             }
+         }
+     }
+     
+     private func resetStateOfSquareButton() {
+         UIView.animate(withDuration: 0.3) {
+             for button in self.squareCollection {
+                 button.isHidden = true
+                 button.setBackgroundImage(UIImage(named: "Rectangle 3"), for: .normal)
+             }
+         }
+     }
     
     private func resetStateOfSelectedGridCollection() {
         let image = UIImage(named: "Selected")
@@ -198,21 +209,7 @@ class GridViewController: UIViewController {
             button.contentHorizontalAlignment = .fill
         }
     }
-    
-    private func animationSquareAndShareView(xTranslation: CGFloat, yTranslation: CGFloat) {
-        // lilian desire mettre ca dans le model = impossible car le CFFloat ou le CGAffine depend du UIKit
-        shareView.transform = CGAffineTransform(translationX: xTranslation, y: yTranslation)
-        squareUIView.transform = CGAffineTransform(translationX: xTranslation, y: yTranslation)
-    }
-    
-    private func checkingSlideLenght(translation: CGFloat) {
-        let slideLenght: CGFloat = 50
-        if translation < -slideLenght {
-            swipeLenghtIsSuffisant = true
-        } else { swipeLenghtIsSuffisant = false }
-    }
 }
-
 
 // MARK: - UIImagePickerControllerDelegate
 extension GridViewController: UIImagePickerControllerDelegate {
@@ -220,3 +217,12 @@ extension GridViewController: UIImagePickerControllerDelegate {
 // MARK: - UINavigationControllerDelegate
 extension GridViewController: UINavigationControllerDelegate{
 }
+// MARK: - animation
+extension GridViewController {
+    func gestureSize(xTranslation: CGFloat, yTranslation: CGFloat) {
+        // Lilian desire mettre ca dans le model = impossible car le CFFloat ou le CGAffine depend du UIKit
+        shareView.transform = CGAffineTransform(translationX: xTranslation, y: yTranslation)
+        squareUIView.transform = CGAffineTransform(translationX: xTranslation, y: yTranslation)
+    }
+}
+
