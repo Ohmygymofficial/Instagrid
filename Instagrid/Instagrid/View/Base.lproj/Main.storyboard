@@ -338,7 +338,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="arrowForSwipe" destination="tiA-aZ-kKL" id="O8k-fH-yfm"/>
+                        <outlet property="arrowImageView" destination="tiA-aZ-kKL" id="O8k-fH-yfm"/>
                         <outlet property="chooseButtonRectangleDown" destination="Kt3-XG-CJC" id="A7I-5C-9nu"/>
                         <outlet property="chooseButtonRectangleUp" destination="mbE-SN-Os2" id="aGM-eg-DmN"/>
                         <outlet property="chooseButtonSquare" destination="m3r-RC-nFF" id="CfE-7s-aGe"/>

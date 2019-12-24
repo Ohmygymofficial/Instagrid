@@ -13,7 +13,7 @@ class GridViewController: UIViewController {
     /// ShareView
     @IBOutlet weak private var shareView: UIStackView!
     @IBOutlet weak private var swipeLabel: UILabel!
-    @IBOutlet weak private var arrowForSwipe: UIImageView!
+    @IBOutlet weak private var arrowImageView: UIImageView!
     /// SquareView
     @IBOutlet weak private var squareUIView: UIView!
     @IBOutlet weak private var squareButtonTopLeft: UIButton!
@@ -27,11 +27,11 @@ class GridViewController: UIViewController {
     @IBOutlet weak private var chooseButtonSquare: UIButton!
     @IBOutlet private var gridCollection: [UIButton]!
     ///var declaration
-    var currentButton = UIButton()
-    var myArray: [UIButton] = []
-    var xValueDisparition: CGFloat = 0
-    var yValueDisparition: CGFloat = 0
-    var model = Model()
+    private var currentButton = UIButton()
+    private var gridConfigurationButtons: [UIButton] = []
+    private var xValueDisparition: CGFloat = 0
+    private var yValueDisparition: CGFloat = 0
+    let gridModel = GridModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +48,12 @@ class GridViewController: UIViewController {
     
     // ConfigureOrientation : Take back from model : Good Label and Arrow depend of the orientation mode
     private func configureOrientation() {
-        let (goodArrowIs, goodSwipeIs) = model.giveGoodArrowAndLabel(isPortrait: isPortraitMode())
-        arrowForSwipe.image = UIImage(named: goodArrowIs)
-        swipeLabel.text = goodSwipeIs
+        let (arrowImage, swipeLabelText) = gridModel.giveGoodArrowAndLabel(isPortrait: isOrientationPortrait)
+        arrowImageView.image = UIImage(named: arrowImage)
+        swipeLabel.text = swipeLabelText
     }
     
-    private func isPortraitMode() -> Bool {
+    private var isOrientationPortrait: Bool {
         switch UIDevice.current.orientation {
         case .landscapeLeft, .landscapeRight:
             return false
@@ -76,7 +76,7 @@ class GridViewController: UIViewController {
     
     private func transformShareViewAndSquareView(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: shareView)
-        if isPortraitMode() {
+        if isOrientationPortrait {
             gestureSize(xTranslation: 0, yTranslation: translation.y)
             checkingSlideLenght(translation: translation.y)
             xValueDisparition = 0
@@ -90,22 +90,18 @@ class GridViewController: UIViewController {
     }
     
     private func checkingSlideLenght(translation: CGFloat) {
-        let slideLenght: CGFloat = 50
-        if translation < -slideLenght {
-            model.swipeLenghtIsSuffisant = true
-        } else {
-            model.swipeLenghtIsSuffisant = false
-        }
+        let slideLength: CGFloat = 50
+        gridModel.swipeLengthIsEnough = translation < -slideLength
     }
     
     private func releaseSwipe(gesture: UIPanGestureRecognizer) {
-        if model.swipeLenghtIsSuffisant {
+        if gridModel.swipeLengthIsEnough {
             UIView.animate(withDuration: 0.3, animations: {
                 self.gestureSize(xTranslation: -self.xValueDisparition, yTranslation: -self.yValueDisparition)
             })
             { (success) in
                 if success {
-                    self.checkIfImagesArePresent(neededButtonImage: self.myArray)
+                    self.checkIfImagesArePresent(neededButtonImage: self.gridConfigurationButtons)
                     self.sharePhoto()
                 }
             }
@@ -120,8 +116,8 @@ class GridViewController: UIViewController {
         let imageView = renderer.image { _ in
             squareUIView.drawHierarchy(in: squareUIView.bounds, afterScreenUpdates: true)
         }
-        let viewC = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
-        present(viewC, animated: true)
+        let shareVC = UIActivityViewController(activityItems: [imageView], applicationActivities: [])
+        present(shareVC, animated: true)
         animationReturnBack()
     }
 
@@ -133,8 +129,12 @@ class GridViewController: UIViewController {
 
     private func checkIfImagesArePresent(neededButtonImage: [UIButton]) {
         for button in neededButtonImage {
-            if button.image(for: .normal)!.pngData() == UIImage(named: "Plus")!.pngData() {
-                let (title, message) = model.alertMessageMissingImage()
+            guard let buttonImageNormal = button.image(for: .normal),
+                let buttonImagePlus = UIImage(named: "Plus") else {
+                    return
+            }
+            if buttonImageNormal.pngData() == buttonImagePlus.pngData() {
+                let (title, message) = gridModel.alertMessageMissingImage()
                 let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
@@ -152,7 +152,7 @@ class GridViewController: UIViewController {
     private func showImagePickerController() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = gridModel.imagePickerAllowsEditing
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
@@ -172,15 +172,15 @@ class GridViewController: UIViewController {
         resetStateOfSquareButton()
         sender.isSelected = true
         if sender == chooseButtonRectangleUp {
-            myArray = [squareButtonTopRight, squareButtonBottomLeft, squareButtonBottomRight]
+            gridConfigurationButtons = [squareButtonTopRight, squareButtonBottomLeft, squareButtonBottomRight]
             self.squareButtonTopRight.setBackgroundImage(UIImage(named: "Rectangle 4"), for: .normal)
         } else if sender == chooseButtonRectangleDown {
-            myArray = [squareButtonTopRight, squareButtonTopLeft, squareButtonBottomRight]
+            gridConfigurationButtons = [squareButtonTopRight, squareButtonTopLeft, squareButtonBottomRight]
             self.squareButtonBottomRight.setBackgroundImage(UIImage(named: "Rectangle 4"), for: .normal)
         } else if sender == chooseButtonSquare {
-            myArray = [squareButtonTopRight, squareButtonTopLeft, squareButtonBottomLeft, squareButtonBottomRight]
+            gridConfigurationButtons = [squareButtonTopRight, squareButtonTopLeft, squareButtonBottomLeft, squareButtonBottomRight]
         }
-        isChangingDisposition(arrayButtonIsVisible: myArray)
+        isChangingDisposition(arrayButtonIsVisible: gridConfigurationButtons)
     }
     
     private func isChangingDisposition(arrayButtonIsVisible: [UIButton]) {
@@ -189,7 +189,7 @@ class GridViewController: UIViewController {
                  button.isHidden = false
              }
          }
-     }
+    }
      
      private func resetStateOfSquareButton() {
          UIView.animate(withDuration: 0.3) {
@@ -212,15 +212,14 @@ class GridViewController: UIViewController {
 }
 
 // MARK: - UIImagePickerControllerDelegate
-extension GridViewController: UIImagePickerControllerDelegate {
-}
+extension GridViewController: UIImagePickerControllerDelegate {}
+
 // MARK: - UINavigationControllerDelegate
-extension GridViewController: UINavigationControllerDelegate{
-}
+extension GridViewController: UINavigationControllerDelegate {}
+
 // MARK: - animation
 extension GridViewController {
     func gestureSize(xTranslation: CGFloat, yTranslation: CGFloat) {
-        // Lilian desire mettre ca dans le model = impossible car le CFFloat ou le CGAffine depend du UIKit
         shareView.transform = CGAffineTransform(translationX: xTranslation, y: yTranslation)
         squareUIView.transform = CGAffineTransform(translationX: xTranslation, y: yTranslation)
     }

@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  GridModel.swift
 //  Instagrid
 //
 //  Created by E&M Life Project on 17/12/2019.
@@ -8,8 +8,11 @@
 
 import Foundation
 
-class Model {
-    var swipeLenghtIsSuffisant = false
+class GridModel {
+    var swipeLengthIsEnough = false
+    var imagePickerAllowsEditing: Bool {
+        return false
+    }
     
     func giveGoodArrowAndLabel(isPortrait: Bool) -> (String, String) {
         if isPortrait {

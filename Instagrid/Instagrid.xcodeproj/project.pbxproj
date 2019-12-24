@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B16B9DAD23A953B9000DACF6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B9DAC23A953B9000DACF6 /* Model.swift */; };
+		B16B9DAD23A953B9000DACF6 /* GridModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B9DAC23A953B9000DACF6 /* GridModel.swift */; };
 		B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */; };
 		B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */; };
 		B1EEC53422C2D8D100D0C6CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1EEC53222C2D8D100D0C6CD /* Main.storyboard */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B16B9DAC23A953B9000DACF6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B16B9DAC23A953B9000DACF6 /* GridModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridModel.swift; sourceTree = "<group>"; };
 		B1EEC52B22C2D8D100D0C6CD /* Instagrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1EEC52E22C2D8D100D0C6CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1EEC53022C2D8D100D0C6CD /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		B18D154522C6456F00C7012F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B16B9DAC23A953B9000DACF6 /* Model.swift */,
+				B16B9DAC23A953B9000DACF6 /* GridModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -181,7 +181,7 @@
 			files = (
 				B1EEC53122C2D8D100D0C6CD /* GridViewController.swift in Sources */,
 				B1EEC52F22C2D8D100D0C6CD /* AppDelegate.swift in Sources */,
-				B16B9DAD23A953B9000DACF6 /* Model.swift in Sources */,
+				B16B9DAD23A953B9000DACF6 /* GridModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
